@@ -59,19 +59,19 @@ const data = {
       items: [
         {
           title: "Brand",
-          url: "admin/product-management/brand",
+          url: "/admin/product-management/brand",
         },
         {
           title: "Category",
-          url: "#",
+          url: "/admin/product-management/category",
         },
         {
           title: "Sub Category",
-          url: "#",
+          url: "/admin/product-management/subcategory",
         },
         {
           title: "Product",
-          url: "#",
+          url: "/admin/product-management/product",
         }
 
       ],
