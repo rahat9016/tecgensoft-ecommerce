@@ -1,4 +1,3 @@
-
 import { AppSidebar } from "@/components/admin/layout/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
@@ -16,13 +15,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <SidebarProvider>
-      <AppSidebar />
-      <main>
-        <SidebarTrigger />
-        {children}
-      </main>
-    </SidebarProvider>
+        <SidebarProvider>
+          <AppSidebar />
+          <main className="w-full">
+            <SidebarTrigger />
+            {children}
+          </main>
+        </SidebarProvider>
       </body>
     </html>
   );

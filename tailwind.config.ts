@@ -27,6 +27,7 @@ export default {
   			}
   		},
   		colors: {
+			'bg-primary': '#02BF6C',
   			primary: {
   				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))'
