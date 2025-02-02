@@ -60,9 +60,10 @@ const SearchBar: FC = () => {
       }
     };
 
-
+    // Attach click event listener to the document
     document.addEventListener("click", handleOutsideClick);
 
+    // Clean up the event listener when the component is unmounted
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
@@ -101,8 +102,6 @@ const SearchBar: FC = () => {
       setShowSuggestions(false);
     }
   };
-  console.log('search')
-  console.log('search')
   return (
     <div className="flex items-center bg-light rounded-[8px] xl:w-[614px] h-[40px] lg:h-[40px]">
       <div className="flex w-full h-full relative shadow-sm lg:shadow-none" ref={inputRef}>
