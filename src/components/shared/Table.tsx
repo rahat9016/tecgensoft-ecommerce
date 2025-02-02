@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
 import {
-  ColumnDef,
   ColumnFiltersState,
   SortingState,
   VisibilityState,
@@ -13,16 +13,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -42,7 +39,7 @@ export type Payment = {
   email: string;
 };
 
-export function DataTable({ data, columns, isLoading }) {
+export function DataTable({ data, columns, isLoading }: any) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -110,12 +107,12 @@ export function DataTable({ data, columns, isLoading }) {
       </div>
       <div className="rounded-md border">
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-[#EFF3F4] h-[48px]">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="font-medium text-[#999999] font-poppins">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -128,7 +125,7 @@ export function DataTable({ data, columns, isLoading }) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="h-[75vh]">
+          <TableBody>
             {isLoading ? (
               <TableRow>
                 <TableCell
@@ -139,20 +136,22 @@ export function DataTable({ data, columns, isLoading }) {
                 </TableCell>
               </TableRow>
             ) : table.getRowModel().rows?.length ? (
-              <>
-                {table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id} className="h-[68px] w-full">
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="h-[68px]">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
-              </>
+              table.getRowModel().rows.map((row, index) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  className={`max-h-[68px] ${index % 2 !== 0 ? "bg-[#EFF3F4] ":"bg-white"}`}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id} className="text-[#0D0D0D] font-poppins font-normal text-sm">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
             ) : (
               <TableRow>
                 <TableCell

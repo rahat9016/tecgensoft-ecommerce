@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { DataTable } from '@/components/shared/Table'
 import { Button } from '@/components/ui/button'
@@ -12,9 +13,14 @@ const data = [
     status: "success",
     email: "ken99@yahoo.com",
   },
+  {
+    id: "m5gr84i9",
+    amount: 316,
+    status: "success",
+    email: "ken99@yahoo.com",
+  },
 ]
-
-export const columns: ColumnDef<any>[] = [
+const columns: ColumnDef<any>[] = [
   {
     accessorKey: "status",
     header: "Status",
@@ -49,7 +55,7 @@ export const columns: ColumnDef<any>[] = [
         currency: "USD",
       }).format(amount)
 
-      return <div className="text-right font-medium">{formatted}</div>
+      return <div className="text-right">{formatted}</div>
     },
   },
   {
