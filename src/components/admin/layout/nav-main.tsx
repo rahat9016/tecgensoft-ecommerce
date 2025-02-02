@@ -64,7 +64,7 @@ export function NavMain({
                         <SidebarMenuSubButton asChild className="h-[38px] px-0">
                           <Link href={subItem.url} >
                             <span className={`block w-full p-3 rounded-md ${
-                                isActive ? "bg-bg-primary text-white font-bold" : "hover:bg-gray-100"
+                                isActive ? "bg-main-primary text-white font-bold" : "hover:bg-gray-100"
                               }`}>{subItem.title}</span>
                           </Link>
                         </SidebarMenuSubButton>
