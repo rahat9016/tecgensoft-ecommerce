@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/collapsible"
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -40,7 +39,6 @@ export function NavMain({
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
@@ -63,10 +61,10 @@ export function NavMain({
                     const isActive = pathname === subItem.url; 
                     return (
                       <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild className="h-[38px]">
+                        <SidebarMenuSubButton asChild className="h-[38px] px-0">
                           <Link href={subItem.url} >
                             <span className={`block w-full p-3 rounded-md ${
-                                isActive ? "bg-rose-500 text-white font-bold" : "hover:bg-gray-100"
+                                isActive ? "bg-bg-primary text-white font-bold" : "hover:bg-gray-100"
                               }`}>{subItem.title}</span>
                           </Link>
                         </SidebarMenuSubButton>
