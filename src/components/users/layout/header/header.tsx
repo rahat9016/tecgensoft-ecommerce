@@ -1,11 +1,14 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../../../public/logo.png"
 import SearchBar from "@/components/shared/SearchBar";
 import { ShoppingCart, Heart } from 'lucide-react';
 import UserSection from "./UserSection";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
+  const pathname = usePathname()
   // const handleMenu = () => {
   //   setMenuOpen(!menuOpen);
   // };
@@ -27,9 +30,10 @@ const Header = () => {
 //       window.location.reload();
 //     }, 100); // Adjust the delay as needed
 //   };
-console.log('header')
+console.log('header pathname', )
   return (
-    <div className="lg:border-b border-white-light bg-light-gray ">
+    <div>
+      {!pathname.startsWith('/admin') && <div className="lg:border-b border-white-light bg-light-gray ">
       <div className="container pt-4 pb-3 flex gap-2 lg:flex-row flex-col justify-between lg:px-12 ">
         <div className="items-center justify-between w-full lg:w-auto hidden lg:flex">
             <Image src={logo} className="h-[48px] cursor-pointer" alt={""} />
@@ -66,6 +70,7 @@ console.log('header')
           <UserSection />
         </div>
       </div>
+    </div>}
     </div>
   );
 };

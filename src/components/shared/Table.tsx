@@ -39,7 +39,7 @@ export type Payment = {
   email: string;
 };
 
-export function DataTable({ data, columns, isLoading }: any) {
+export function DataTable({ data, columns, isLoading, isColumnsShow=false }: any) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -69,7 +69,7 @@ export function DataTable({ data, columns, isLoading }: any) {
   console.log('table')
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Filter emails..."
           value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
@@ -78,7 +78,9 @@ export function DataTable({ data, columns, isLoading }: any) {
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
+        <div className="flex items-center gap-3">
+          
+        {!isColumnsShow && <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
               Columns <ChevronDown />
@@ -103,7 +105,9 @@ export function DataTable({ data, columns, isLoading }: any) {
                 );
               })}
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu>}
+        <Button>Create</Button>
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>
