@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +31,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../ui/pagination";
 
 export type Payment = {
   id: string;
@@ -39,7 +40,7 @@ export type Payment = {
   email: string;
 };
 
-export function DataTable({ data, columns, isLoading, isColumnsShow=false }: any) {
+export function DataTable({ data, columns, page, setPage, totalPages,  isLoading, isColumnsShow = false}) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -106,7 +107,7 @@ export function DataTable({ data, columns, isLoading, isColumnsShow=false }: any
               })}
           </DropdownMenuContent>
         </DropdownMenu>}
-        <Button>Create</Button>
+        <Button className="bg-main-secondary hover:bg-main-secondary font-poppins text-sm font-normal flex items-center gap-2 px-6 py-3"> <Plus />Create</Button>
         </div>
       </div>
       <div className="rounded-md border">
@@ -174,24 +175,39 @@ export function DataTable({ data, columns, isLoading, isColumnsShow=false }: any
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
+        <Pagination className="flex justify-end py-4">
+        <PaginationContent>
+          {/* Previous Button */}
+          <PaginationItem>
+            <PaginationPrevious href="#" onClick={() => setPage(Math.max(page - 1, 1))} disabled={page === 1} />
+          </PaginationItem>
+
+          {/* Page Numbers */}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+            <PaginationItem key={pageNumber}>
+              <PaginationLink
+                href="#"
+                onClick={() => setPage(pageNumber)}
+                isActive={pageNumber === page}
+              >
+                {pageNumber}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+
+          {/* Ellipsis (Only show if there are many pages) */}
+          {totalPages > 5 && (
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          )}
+
+          {/* Next Button */}
+          <PaginationItem>
+            <PaginationNext href="#" onClick={() => setPage(page + 1)} disabled={page >= totalPages} />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
       </div>
     </div>
   );

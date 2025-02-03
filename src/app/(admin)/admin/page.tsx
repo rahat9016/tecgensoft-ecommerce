@@ -3,6 +3,7 @@
 import { DataTable } from '@/components/shared/Table'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { usePagination } from '@/hooks/usePagination'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
 import React from 'react'
@@ -92,7 +93,7 @@ export default function Admin() {
   // const [currentPage, setCurrentPage] = useState(1)
   // const [searchQuery, setSearchQuery] = useState('')
   // const pageSize = 10
- 
+ const { page, setPage, pageSize } = usePagination()
   return (
     <div className='px-2'>
        {/* <DataTable
@@ -106,7 +107,7 @@ export default function Admin() {
       filterKey="name"
       isLoading={false}
     /> */}
-    <DataTable data={data} columns={columns} isLoading={false} />
+    <DataTable data={data} columns={columns} page={page} setPage={setPage} totalPages={pageSize} isLoading={false} />
     </div>
   )
 }
