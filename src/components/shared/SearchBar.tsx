@@ -60,10 +60,9 @@ const SearchBar: FC = () => {
       }
     };
 
-    // Attach click event listener to the document
+
     document.addEventListener("click", handleOutsideClick);
 
-    // Clean up the event listener when the component is unmounted
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
