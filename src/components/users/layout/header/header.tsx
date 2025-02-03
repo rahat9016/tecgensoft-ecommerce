@@ -27,6 +27,7 @@ const Header = () => {
 //       window.location.reload();
 //     }, 100); // Adjust the delay as needed
 //   };
+console.log('header')
   return (
     <div className="lg:border-b border-white-light bg-light-gray ">
       <div className="container pt-4 pb-3 flex gap-2 lg:flex-row flex-col justify-between lg:px-12 ">
