@@ -66,7 +66,7 @@ export function DataTable({ data, columns, isLoading }: any) {
       rowSelection,
     },
   });
-
+  console.log('table')
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
