@@ -28,12 +28,13 @@ export default {
         },
       },
       colors: {
+        "main-primary":"#02BF6C",
         "bg-primary": "#02BF6C",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
-        "primary-dark": "#32556E",
+        "primary-dark": "#00854b",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
