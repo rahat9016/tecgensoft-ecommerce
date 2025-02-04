@@ -34,7 +34,7 @@ console.log('header pathname', )
   return (
     <div>
       {!pathname.startsWith('/admin') && <div className="lg:border-b border-white-light bg-light-gray ">
-      <div className="container pt-4 pb-3 flex gap-2 lg:flex-row flex-col justify-between lg:px-12 ">
+      <div className="container pt-4 pb-3 flex gap-2 lg:flex-row flex-col justify-between ">
         <div className="items-center justify-between w-full lg:w-auto hidden lg:flex">
             <Image src={logo} className="h-[48px] cursor-pointer" alt={""} />
           {/* <FiMenu className="text-3xl block lg:hidden relative" onClick={handleMenu} /> */}
