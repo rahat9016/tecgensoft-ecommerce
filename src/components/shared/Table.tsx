@@ -40,7 +40,7 @@ export type Payment = {
   email: string;
 };
 
-export function DataTable({ data, columns, page, setPage, totalPages,  isLoading, isColumnsShow = false}) {
+export function DataTable({ data, columns, page, setPage, totalPages,  isLoading, isColumnsShow = false}: any) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -179,7 +179,7 @@ export function DataTable({ data, columns, page, setPage, totalPages,  isLoading
         <PaginationContent>
           {/* Previous Button */}
           <PaginationItem>
-            <PaginationPrevious href="#" onClick={() => setPage(Math.max(page - 1, 1))} disabled={page === 1} />
+            <PaginationPrevious href="#" onClick={() => setPage(Math.max(page - 1, 1))}  />
           </PaginationItem>
 
           {/* Page Numbers */}
@@ -204,7 +204,7 @@ export function DataTable({ data, columns, page, setPage, totalPages,  isLoading
 
           {/* Next Button */}
           <PaginationItem>
-            <PaginationNext href="#" onClick={() => setPage(page + 1)} disabled={page >= totalPages} />
+            <PaginationNext href="#" onClick={() => setPage(page + 1)}  />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
