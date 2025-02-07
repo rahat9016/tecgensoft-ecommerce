@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import type { Config } from "tailwindcss";
+import type {Config} from "tailwindcss";
 
 export default {
   darkMode: ["class"],
@@ -28,9 +28,9 @@ export default {
         },
       },
       colors: {
-        "main-primary":"#02BF6C",
+        "main-primary": "#02BF6C",
         "bg-primary": "#02BF6C",
-        "main-secondary":"#EA244E",
+        "main-secondary": "#EA244E",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
