@@ -1,6 +1,7 @@
 import {Skeleton} from "@/components/ui/skeleton";
 import React from "react";
 import SliderBanner from "./SliderBanner";
+import SectionHeader from "@/components/CustomComponents/SectionHeader";
 
 const HomeForBigScreen = () => {
   return (
@@ -18,6 +19,12 @@ const HomeForBigScreen = () => {
             {/* slider banner */}
             <SliderBanner />
           </div>
+        </div>
+
+        {/* popular products */}
+        <div className="my-10">
+          {/* heading */}
+          <SectionHeader title="Popular Products" />
         </div>
       </div>
     </div>
