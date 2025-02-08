@@ -8,7 +8,7 @@ export default function UserSection() {
   return (
     <div>
          <div className="flex items-center gap-2 ml-4 relative cursor-pointer">
-          <Link href="/auth/signin" className="flex justify-start items-center ">
+          <Link href="/auth/signing" className="flex justify-start items-center ">
           <User />
             <p className="text-primary-dark text-base font-semibold ml-1">Sign in</p>
           </Link>
