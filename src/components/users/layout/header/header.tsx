@@ -32,7 +32,7 @@ const Header = () => {
 //   };
 
   return (
-    <div>
+    <header>
       {!pathname.startsWith('/admin')  && <div className="lg:border-b border-white-light bg-light-gray ">
       <div className="container pt-4 pb-3 flex gap-2 lg:flex-row flex-col justify-between ">
         <div className="items-center justify-between w-full lg:w-auto hidden lg:flex">
@@ -71,7 +71,7 @@ const Header = () => {
         </div>
       </div>
     </div>}
-    </div>
+    </header>
   );
 };
 
