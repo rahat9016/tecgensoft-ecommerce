@@ -1,7 +1,9 @@
 import {Skeleton} from "@/components/ui/skeleton";
 import React from "react";
-import SliderBanner from "./SliderBanner";
 import SectionHeader from "@/components/CustomComponents/SectionHeader";
+import FeaturedProducts from "./FeaturedProducts";
+import DealsOfWeek from "./DealsOfWeek";
+import SliderBanner from "./components/SliderBanner";
 
 const HomeForSmallScreen = () => {
   return (
@@ -13,10 +15,7 @@ const HomeForSmallScreen = () => {
       <SliderBanner />
 
       {/* deals of the week */}
-      <div className="flex flex-col gap-2">
-        <SectionHeader title="Deals of the week" />
-        <div className="min-h-[200px] bg-amber-300"></div>
-      </div>
+      <DealsOfWeek />
 
       {/* featured category */}
       <div className="flex flex-col gap-2">
@@ -25,10 +24,7 @@ const HomeForSmallScreen = () => {
       </div>
 
       {/* featured products */}
-      <div className="flex flex-col gap-2">
-        <SectionHeader title="Featured Products" showLink={false} />
-        <div className="min-h-[200px] bg-amber-300"></div>
-      </div>
+      <FeaturedProducts />
 
       {/*  */}
     </div>

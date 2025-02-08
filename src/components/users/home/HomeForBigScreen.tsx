@@ -1,7 +1,7 @@
 import {Skeleton} from "@/components/ui/skeleton";
 import React from "react";
-import SliderBanner from "./SliderBanner";
 import SectionHeader from "@/components/CustomComponents/SectionHeader";
+import SliderBanner from "./components/SliderBanner";
 
 const HomeForBigScreen = () => {
   return (
