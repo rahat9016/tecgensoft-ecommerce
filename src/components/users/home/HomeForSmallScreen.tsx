@@ -4,6 +4,7 @@ import SectionHeader from "@/components/CustomComponents/SectionHeader";
 import FeaturedProducts from "./FeaturedProducts";
 import DealsOfWeek from "./DealsOfWeek";
 import SliderBanner from "./components/SliderBanner";
+import {products} from "./DemoData";
 
 const HomeForSmallScreen = () => {
   return (
@@ -24,7 +25,7 @@ const HomeForSmallScreen = () => {
       </div>
 
       {/* featured products */}
-      <FeaturedProducts />
+      <FeaturedProducts isLoadMore={false} data={products} />
 
       {/*  */}
     </div>
