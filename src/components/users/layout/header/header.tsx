@@ -32,8 +32,8 @@ const Header = () => {
 //   };
 
   return (
-    <header>
-      {!pathname.startsWith('/admin')  && <div className="lg:border-b border-white-light bg-light-gray ">
+    <header className="pb-[77px]">
+      {!pathname.startsWith('/admin')  && <div className="lg:border-b border-white-light bg-light-gray top-0 w-full fixed z-50 shadow-sm">
       <div className="container pt-4 pb-3 flex gap-2 lg:flex-row flex-col justify-between ">
         <div className="items-center justify-between w-full lg:w-auto hidden lg:flex">
             <Link href={"/"}><Image src={logo} className="h-[48px] cursor-pointer" alt={""} /></Link>
