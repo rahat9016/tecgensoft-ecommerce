@@ -1,4 +1,4 @@
-import SectionHeader from "@/components/CustomComponents/SectionHeader";
+import SectionHeader from "@/components/shared/SectionHeader";
 import React from "react";
 
 const DealsOfWeek = () => {

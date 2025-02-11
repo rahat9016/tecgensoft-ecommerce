@@ -1,9 +1,7 @@
-import {Skeleton} from "@/components/ui/skeleton";
-import React from "react";
-import SectionHeader from "@/components/CustomComponents/SectionHeader";
+import { Skeleton } from "@/components/ui/skeleton";
 import SliderBanner from "./components/SliderBanner";
+import { popularProducts, products } from "./DemoData";
 import FeaturedProducts from "./FeaturedProducts";
-import {popularProducts, products} from "./DemoData";
 import PopularProducts from "./PopularProducts";
 
 const HomeForBigScreen = () => {

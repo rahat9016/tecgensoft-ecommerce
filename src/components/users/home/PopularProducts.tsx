@@ -1,9 +1,21 @@
-import ProductCard from "@/components/CustomComponents/ProductCard";
-import SectionHeader from "@/components/CustomComponents/SectionHeader";
+import ProductCard from "@/components/shared/cards/ProductCard";
+import SectionHeader from "@/components/shared/SectionHeader";
 import React from "react";
 
+type Product = {
+  id: number;
+  productImage: string;
+  productName: string;
+  price: number;
+  discountPrice: number;
+  isShowDiscountPrice: boolean;
+  star: number;
+  discount: number;
+  isDiscountBanner: boolean;
+};
+
 type PopularProductsProps = {
-  data: any;
+  data: Product[];
 };
 
 const PopularProducts: React.FC<PopularProductsProps> = ({data}) => {
@@ -13,7 +25,7 @@ const PopularProducts: React.FC<PopularProductsProps> = ({data}) => {
       <SectionHeader title="Popular Products" />
       <div className="min-h-[200px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-2 lg:gap-x-3 gap-y-3 lg:gap-y-4">
         {/* card */}
-        {data.map((product: any) => (
+        {data.map((product: Product) => (
           <ProductCard
             key={product?.id}
             productImage={product?.productImage}

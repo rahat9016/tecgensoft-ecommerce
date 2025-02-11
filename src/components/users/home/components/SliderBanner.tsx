@@ -5,14 +5,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import {ButtonHTMLAttributes} from "react";
-import {ChevronLeft, ChevronsRight} from "lucide-react";
+import { ChevronLeft, ChevronsRight } from "lucide-react";
 import SliderBannerCard from "./SliderBannerCard";
 
-interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-  className?: string;
-}
 type DataProps = {
   id: number;
   title: string;

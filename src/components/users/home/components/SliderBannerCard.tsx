@@ -1,4 +1,4 @@
-import CountDownTimer from "@/components/CustomComponents/CountDownTimer";
+import CountDownTimer from "@/components/shared/CountDownTimer";
 import Image from "next/image";
 import React from "react";
 

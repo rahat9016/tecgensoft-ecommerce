@@ -1,4 +1,16 @@
-export const products = [
+type Product = {
+  id: number;
+  productImage: string;
+  productName: string;
+  price: number;
+  discountPrice: number;
+  isShowDiscountPrice: boolean;
+  star: number;
+  discount: number;
+  isDiscountBanner: boolean;
+};
+
+export const products: Product[] = [
   {
     id: 1,
     productImage: "/images/home/demo_product_img.png",
@@ -18,6 +30,8 @@ export const products = [
     discountPrice: 1324,
     isShowDiscountPrice: true,
     star: 3.0,
+    isDiscountBanner: true,
+    discount: 20,
   },
   {
     id: 3,
@@ -27,6 +41,8 @@ export const products = [
     discountPrice: 1324,
     isShowDiscountPrice: true,
     star: 3.0,
+    isDiscountBanner: true,
+    discount: 20,
   },
   {
     id: 4,
@@ -36,6 +52,8 @@ export const products = [
     discountPrice: 1324,
     isShowDiscountPrice: true,
     star: 3.0,
+    isDiscountBanner: true,
+    discount: 20,
   },
   {
     id: 5,
@@ -45,6 +63,8 @@ export const products = [
     discountPrice: 1324,
     isShowDiscountPrice: true,
     star: 3.0,
+    isDiscountBanner: true,
+    discount: 20,
   },
   {
     id: 6,
@@ -54,6 +74,8 @@ export const products = [
     discountPrice: 1324,
     isShowDiscountPrice: true,
     star: 3.0,
+    isDiscountBanner: true,
+    discount: 20,
   },
   {
     id: 7,
@@ -63,10 +85,12 @@ export const products = [
     discountPrice: 1324,
     isShowDiscountPrice: true,
     star: 3.0,
+    isDiscountBanner: true,
+    discount: 20,
   },
 ];
 
-export const popularProducts = [
+export const popularProducts: Product[] = [
   {
     id: 1,
     productImage: "/images/home/demo_product_img.png",

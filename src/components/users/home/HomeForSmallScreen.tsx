@@ -1,10 +1,9 @@
+import SectionHeader from "@/components/shared/SectionHeader";
 import {Skeleton} from "@/components/ui/skeleton";
-import React from "react";
-import SectionHeader from "@/components/CustomComponents/SectionHeader";
-import FeaturedProducts from "./FeaturedProducts";
-import DealsOfWeek from "./DealsOfWeek";
 import SliderBanner from "./components/SliderBanner";
+import DealsOfWeek from "./DealsOfWeek";
 import {products} from "./DemoData";
+import FeaturedProducts from "./FeaturedProducts";
 
 const HomeForSmallScreen = () => {
   return (
