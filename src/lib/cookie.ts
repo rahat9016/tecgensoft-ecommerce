@@ -1,10 +1,10 @@
 import CryptoJS from "crypto-js";
 import { jwtDecode, JwtPayload } from "jwt-decode";
-
+const key = process.env.NEXT_PUBLIC_SECRET_KEY || 'BOOM'
 export const setCookie = (name: string, value: any, time: number) => {
     const encryptedValue = CryptoJS.AES.encrypt(
         JSON.stringify(value),
-        import.meta.env.VITE_REACT_SECRET_KEY
+        key
     ).toString();
 
     const date = new Date();
@@ -26,7 +26,7 @@ export const getCookie = (name: string) => {
             );
             const decryptedValue = CryptoJS.AES.decrypt(
                 encryptedValue,
-                import.meta.env.VITE_REACT_SECRET_KEY
+                key
             ).toString(CryptoJS.enc.Utf8);
             return JSON.parse(decryptedValue);
         }

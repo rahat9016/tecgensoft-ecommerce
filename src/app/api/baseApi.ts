@@ -1,39 +1,76 @@
-import axios from 'axios';
-// import { getAuthToken, setAuthToken, clearAuthToken, isTokenExpired } from './auth';
 
+import { getCookie, isCookieExpired, setCookie } from '@/lib/cookie';
+import axios from 'axios';
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-const axiosInstance = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true, // Required for cookies/session-based auth
+const api = axios.create({
+    baseURL: BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
 });
 
-// Request Interceptor
-// axiosInstance.interceptors.request.use(
-//   async (config: { auth: boolean; headers: { Authorization: string; }; }) => {
-//     if (config.auth === false) {
-//       return config;
-//     }
-//     let token = getAuthToken();
-//     if (token && isTokenExpired(token)) {
-//       try {
-//         const { data } = await axios.post(`${BASE_URL}/auth/refresh`, {}, { withCredentials: true });
-//         setAuthToken(data.accessToken);
-//         token = data.accessToken;
-//       } catch (refreshError) {
-//         clearAuthToken();
-//         return Promise.reject(refreshError);
-//       }
-//     }
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error: any) => Promise.reject(error)
-// );
+// Token management variables
+let isAuthenticating = false;
+let pendingAuthPromise: Promise<string | null> | null = null;
 
-// export default axiosInstance;
+const refreshAuthToken = async (): Promise<string | null> => {
+    const refreshToken = getCookie("refreshToken");
+
+    if (!refreshToken || isCookieExpired("refreshToken")) {
+        console.warn("Refresh token missing or expired");
+        return null; // Handle logout in the UI if needed
+    }
+
+    try {
+        const response = await api.post('/authenticate/refresh', { refreshToken });
+        const { jwtToken } = response.data;
+        setCookie("jwtToken", jwtToken, 100); // 1 hour
+        return jwtToken;
+    } catch (error) {
+        console.error("Token refresh failed:", error);
+        return null;
+    }
+};
+
+const getToken = async (): Promise<string | null> => {
+    let token = getCookie("jwtToken");
+
+    if (!token || isCookieExpired("jwtToken")) {
+        if (!isAuthenticating) {
+            isAuthenticating = true;
+            pendingAuthPromise = (async () => {
+                try {
+                    return await refreshAuthToken();
+                } catch (error) {
+                    console.error("Authentication error:", error);
+                    return null;
+                } finally {
+                    isAuthenticating = false;
+                    pendingAuthPromise = null;
+                }
+            })();
+        }
+        token = await pendingAuthPromise;
+    }
+
+    return token;
+};
+
+// Axios request interceptor to inject the token
+api.interceptors.request.use(
+    async (config) => {
+        if (config.url !== '/authenticate' && config.url !== '/authenticate/refresh') {
+            const token = await getToken();
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
+
+export default api;
+
+
