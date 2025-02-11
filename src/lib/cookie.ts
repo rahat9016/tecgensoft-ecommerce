@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 const key = process.env.NEXT_PUBLIC_SECRET_KEY || 'BOOM'
-export const setCookie = (name: string, value: any, time: number) => {
+export const setCookie = (name: string, value: string, time: number) => {
     const encryptedValue = CryptoJS.AES.encrypt(
         JSON.stringify(value),
         key
@@ -18,7 +18,7 @@ export const getCookie = (name: string) => {
     const cookiesArray = document.cookie.split(";");
 
     for (let i = 0; i < cookiesArray.length; i++) {
-        let cookie = cookiesArray[i].trim();
+        const cookie = cookiesArray[i].trim();
         if (cookie.indexOf(nameEQ) === 0) {
             const encryptedValue = cookie.substring(
                 nameEQ.length,

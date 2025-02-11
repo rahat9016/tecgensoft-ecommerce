@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 export const usePagination = () => {
-  const [page, setPage] = useState<number>(0);
-  const pageSize:number = 10; 
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [pageCount, setPageCount] = useState(10);
   
-  return {page, setPage, pageSize}
+  return {page,  pageSize, pageCount, setPage, setPageSize, setPageCount}
 };

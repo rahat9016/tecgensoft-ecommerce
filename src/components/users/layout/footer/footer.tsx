@@ -1,9 +1,11 @@
-
+"use client"
+import { usePathname } from 'next/navigation'
 import React from 'react'
 const Footer =() => {
+  const pathname = usePathname()
   return (
-    <footer className="bg-[#081621] text-gray-300 py-10">
-      
+    <footer>
+      {!pathname.startsWith('/admin')  && <div></div>}
     </footer>
   )
 }

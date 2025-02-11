@@ -1,12 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
-import { DataTable } from '@/components/shared/Table'
-import { Button } from '@/components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { usePagination } from '@/hooks/usePagination'
-import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
-import React from 'react'
+"use client";
+import { DataTable } from "@/components/shared/Table";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { usePagination } from "@/hooks/usePagination";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import React from "react";
 const data = [
   {
     id: "m5gr84i9",
@@ -20,7 +27,7 @@ const data = [
     status: "success",
     email: "ken99@yahoo.com",
   },
-]
+];
 const columns: ColumnDef<any>[] = [
   {
     accessorKey: "status",
@@ -40,7 +47,7 @@ const columns: ColumnDef<any>[] = [
           Email
           <ArrowUpDown />
         </Button>
-      )
+      );
     },
     cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
   },
@@ -48,22 +55,22 @@ const columns: ColumnDef<any>[] = [
     accessorKey: "amount",
     header: () => <div className="text-right">Amount</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
+      const amount = parseFloat(row.getValue("amount"));
 
       // Format the amount as a dollar amount
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
-      }).format(amount)
+      }).format(amount);
 
-      return <div className="text-right">{formatted}</div>
+      return <div className="text-right">{formatted}</div>;
     },
   },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original
+      const payment = row.original;
 
       return (
         <DropdownMenu>
@@ -85,29 +92,25 @@ const columns: ColumnDef<any>[] = [
             <DropdownMenuItem>View payment details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];
 export default function Admin() {
-  // const [currentPage, setCurrentPage] = useState(1)
-  // const [searchQuery, setSearchQuery] = useState('')
-  // const pageSize = 10
- const { page, setPage, pageSize } = usePagination()
+  const { page, setPage, pageSize, setPageSize, pageCount } = usePagination();
+  
   return (
-    <div className='px-2'>
-       {/* <DataTable
-      columns={[]}
-      data={[]}
-      totalCount={0}
-      currentPage={currentPage}
-      pageSize={pageSize}
-      onPageChange={setCurrentPage}
-      onSearchChange={setSearchQuery}
-      filterKey="name"
-      isLoading={false}
-    /> */}
-    <DataTable data={data} columns={columns} page={page} setPage={setPage} totalPages={pageSize} isLoading={false} />
+    <div className="px-2">
+      <DataTable
+        data={data}
+        columns={columns}
+        isLoading={false}
+        page={page}
+        pageSize={pageSize}
+        pageCount={pageCount}
+        setPage={setPage}
+        setPageSize={setPageSize}
+      />
     </div>
-  )
+  );
 }

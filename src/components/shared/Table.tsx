@@ -31,16 +31,38 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../ui/pagination";
+import { PaginationWithLinks } from "../ui/pagination-with-links";
+export interface IColumn<T> {
+  key: keyof T;
+  label: string;
+  render?: (row: T) => React.ReactNode;
+}
 
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
-};
+export interface IDataTableProps<T> {
+  data: T[];
+  columns: any;
+  isLoading?: boolean;
+  isColumnsShow?: boolean;
+  page: number;
+  setPage: (page: number) => void;
+  pageSize: number;
+  setPageSize: (size: number) => void;
+  pageCount: number;
+}
 
-export function DataTable({ data, columns, page, setPage, totalPages,  isLoading, isColumnsShow = false}: any) {
+
+export function DataTable<T>({
+  data,
+  columns,
+  isLoading,
+  isColumnsShow = false,
+  page,
+  setPage,
+  pageSize,
+  setPageSize,
+  pageCount
+
+}: IDataTableProps<T>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -67,7 +89,6 @@ export function DataTable({ data, columns, page, setPage, totalPages,  isLoading
       rowSelection,
     },
   });
-  console.log('table')
   return (
     <div className="w-full">
       <div className="flex items-center justify-between py-4">
@@ -80,34 +101,39 @@ export function DataTable({ data, columns, page, setPage, totalPages,  isLoading
           className="max-w-sm"
         />
         <div className="flex items-center gap-3">
-          
-        {!isColumnsShow && <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>}
-        <Button className="bg-main-secondary hover:bg-main-secondary font-poppins text-sm font-normal flex items-center gap-2 px-6 py-3"> <Plus />Create</Button>
+          {!isColumnsShow && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="ml-auto">
+                  Columns <ChevronDown />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => {
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) =>
+                          column.toggleVisibility(!!value)
+                        }
+                      >
+                        {column.id}
+                      </DropdownMenuCheckboxItem>
+                    );
+                  })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+          <Button className="bg-main-secondary hover:bg-main-secondary font-poppins text-sm font-normal flex items-center gap-2 px-6 py-3">
+            {" "}
+            <Plus />
+            Create
+          </Button>
         </div>
       </div>
       <div className="rounded-md border">
@@ -117,7 +143,10 @@ export function DataTable({ data, columns, page, setPage, totalPages,  isLoading
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="font-medium text-[#999999] font-poppins">
+                    <TableHead
+                      key={header.id}
+                      className="font-medium text-[#999999] font-poppins"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -145,10 +174,15 @@ export function DataTable({ data, columns, page, setPage, totalPages,  isLoading
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className={`max-h-[68px] ${index % 2 !== 0 ? "bg-[#EFF3F4] ":"bg-white"}`}
+                  className={`max-h-[68px] ${
+                    index % 2 !== 0 ? "bg-[#EFF3F4] " : "bg-white"
+                  }`}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="text-[#0D0D0D] font-poppins font-normal text-sm">
+                    <TableCell
+                      key={cell.id}
+                      className="text-[#0D0D0D] font-poppins font-normal text-sm"
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -170,44 +204,19 @@ export function DataTable({ data, columns, page, setPage, totalPages,  isLoading
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
+      <div className="flex items-center justify-between py-4">
+        <div className="flex text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
-        <Pagination className="flex justify-end py-4">
-        <PaginationContent>
-          {/* Previous Button */}
-          <PaginationItem>
-            <PaginationPrevious href="#" onClick={() => setPage(Math.max(page - 1, 1))}  />
-          </PaginationItem>
-
-          {/* Page Numbers */}
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
-            <PaginationItem key={pageNumber}>
-              <PaginationLink
-                href="#"
-                onClick={() => setPage(pageNumber)}
-                isActive={pageNumber === page}
-              >
-                {pageNumber}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-
-          {/* Ellipsis (Only show if there are many pages) */}
-          {totalPages > 5 && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-
-          {/* Next Button */}
-          <PaginationItem>
-            <PaginationNext href="#" onClick={() => setPage(page + 1)}  />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+        <PaginationWithLinks
+          page={page}
+          pageSize={pageSize}
+          totalCount={pageCount}
+          onPageChange={setPage}
+          onPageSizeChange={setPageSize}
+          pageSizeSelectOptions={{ pageSizeOptions: [10, 20, 50] }}
+        />
       </div>
     </div>
   );
