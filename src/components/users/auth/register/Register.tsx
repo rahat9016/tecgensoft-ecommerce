@@ -43,7 +43,7 @@ export default function Register() {
                 className="pl-10 h-12 bg-slate-50 focus:ring-2 focus:ring-purple-400 rounded-xl"
               />
             </div>
-            <Button className="w-full h-[38px] lg:h-[48px] mx-auto bg-main-primary hover:bg-primary-dark font-poppins font-bold text-sm lg:text-base shadow-md mt-1 lg:mt-3">
+            <Button className="w-full h-[38px] lg:h-[48px] mx-auto bg-main-primary hover:bg-main-primary-dark font-poppins font-bold text-sm lg:text-base shadow-md mt-1 lg:mt-3">
               Register
             </Button>
           </div>
