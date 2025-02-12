@@ -32,8 +32,8 @@ const Header = () => {
 //   };
 
   return (
-    <div>
-      {!pathname.startsWith('/admin')  && <div className="lg:border-b border-white-light bg-light-gray ">
+    <header className={`${pathname.startsWith('/admin') ? "":"pb-[77px]" } `}>
+      {!pathname.startsWith('/admin')  && <div className="lg:border-b border-white-light bg-light-gray top-0 w-full fixed z-50 shadow-sm">
       <div className="container pt-4 pb-3 flex gap-2 lg:flex-row flex-col justify-between ">
         <div className="items-center justify-between w-full lg:w-auto hidden lg:flex">
             <Link href={"/"}><Image src={logo} className="h-[48px] cursor-pointer" alt={""} /></Link>
@@ -50,7 +50,7 @@ const Header = () => {
               } cursor-pointer hover:scale-110 duration-300`}
             /> */}
           {/* </Button> */}
-            <Heart className="" />
+            <Heart />
           <Link href="/cart">
             <div className="relative group hover:scale-[1.02] duration-100 ">
               <div className="absolute left-3 -top-[8px]">
@@ -71,7 +71,7 @@ const Header = () => {
         </div>
       </div>
     </div>}
-    </div>
+    </header>
   );
 };
 
