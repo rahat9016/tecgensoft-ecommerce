@@ -97,10 +97,10 @@ const columns: ColumnDef<any>[] = [
   },
 ];
 export default function Admin() {
-  const { page, setPage, pageSize, setPageSize, pageCount } = usePagination();
-  
+  const { page, setPage, pageSize, setPageSize, pageCount, setSearch } = usePagination();
+
   return (
-    <div className="px-2">
+    <div >
       <DataTable
         data={data}
         columns={columns}
@@ -110,6 +110,8 @@ export default function Admin() {
         pageCount={pageCount}
         setPage={setPage}
         setPageSize={setPageSize}
+        setSearch={setSearch}
+        createFn={() => console.log('clicking...')}
       />
     </div>
   );

@@ -1,7 +1,9 @@
 "use client";
-
-
-
+import { ReactNode } from "react";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from "./pagination";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 export interface PaginationWithLinksProps {
   pageSizeSelectOptions?: {
     pageSizeSearchParam?: string;
@@ -13,25 +15,6 @@ export interface PaginationWithLinksProps {
   pageSearchParam?: string;
 }
 
-/**
- * Navigate with Nextjs links (need to update your own `pagination.tsx` to use Nextjs Link)
- * 
- * @example
- * ```
- * <PaginationWithLinks
-    page={1}
-    pageSize={20}
-    totalCount={500}
-  />
- * ```
- */
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from "./pagination";
-import { ReactNode } from "react";
-import { cn } from "@/lib/utils";
-
-
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
 
 export function PaginationWithLinks({
   pageSizeSelectOptions,
@@ -61,9 +44,9 @@ export function PaginationWithLinks({
             <button
               onClick={() => onPageChange(i)}
               className={cn(
-                "px-3 py-1 rounded-md transition-all",
+                "px-3 py-1 rounded-md transition-all bg-main-light-gray w-[40px] h-[40px]",
                 {
-                  "bg-white text-black shadow-md": page === i, // Active state
+                  "bg-main-smoky-black text-white": page === i, // Active state
                   "hover:bg-gray-200": page !== i, // Hover effect for inactive items
                 }
               )}
@@ -78,7 +61,7 @@ export function PaginationWithLinks({
         <PaginationItem key={1}>
           <button
             onClick={() => onPageChange(1)}
-            className={cn("px-3 py-1 rounded-md", { "bg-white shadow-md": page === 1 })}
+            className={cn("px-3 py-1 rounded-md bg-main-light-gray w-[40px] h-[40px]", { "bg-main-smoky-black text-white": page === 1 })}
           >
             1
           </button>
@@ -98,9 +81,9 @@ export function PaginationWithLinks({
             <button
               onClick={() => onPageChange(i)}
               className={cn(
-                "px-3 py-1 rounded-md transition-all",
+                "px-3 py-1 rounded-md transition-all bg-main-light-gray w-[40px] h-[40px]",
                 {
-                  "bg-white text-black shadow-md": page === i, // Active state
+                  "bg-main-smoky-black text-white": page === i, // Active state
                   "hover:bg-gray-200": page !== i, // Hover effect for inactive items
                 }
               )}
@@ -119,7 +102,7 @@ export function PaginationWithLinks({
         <PaginationItem key={totalPageCount}>
           <button
             onClick={() => onPageChange(totalPageCount)}
-            className={cn("px-3 py-1 rounded-md", { "bg-white shadow-md": page === totalPageCount })}
+            className={cn("px-2 py-1 rounded-md bg-main-light-gray w-[40px] h-[40px]", { "bg-main-smoky-black text-white": page === totalPageCount })}
           >
             {totalPageCount}
           </button>
@@ -131,7 +114,7 @@ export function PaginationWithLinks({
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center gap-1 lg:gap-3 w-full">
+    <div className="flex items-center gap-3">
       {pageSizeSelectOptions && (
         <div className="flex flex-col gap-4 flex-1">
           <SelectRowsPerPage
@@ -148,11 +131,11 @@ export function PaginationWithLinks({
               onClick={() => onPageChange(Math.max(page - 1, 1))}
               disabled={page === 1}
               className={cn(
-                "flex items-center gap-1 px-3 py-1 rounded-md transition-all",
+                "flex items-center gap-1 px-2 py-2 rounded-md transition-all bg-main-light-gray w-[40px] h-[40px]",
                 { "opacity-50 pointer-events-none": page === 1 }
               )}
             >
-              <ChevronLeft size={16} /> Previous
+              <ChevronLeft size={22} />
             </button>
           </PaginationItem>
           {renderPageNumbers()}
@@ -161,11 +144,11 @@ export function PaginationWithLinks({
               onClick={() => onPageChange(Math.min(page + 1, totalPageCount))}
               disabled={page === totalPageCount}
               className={cn(
-                "flex items-center gap-1 px-3 py-1 rounded-md transition-all",
+                "flex items-center gap-1 px-2 py-2 rounded-md transition-all bg-main-light-gray w-[40px] h-[40px]",
                 { "opacity-50 pointer-events-none": page === totalPageCount }
               )}
             >
-              Next <ChevronRight size={16} />
+              <ChevronRight size={22} />
             </button>
           </PaginationItem>
         </PaginationContent>
@@ -191,7 +174,7 @@ function SelectRowsPerPage({
       <span className="whitespace-nowrap text-sm">Rows per page</span>
 
       <Select value={String(pageSize)} onValueChange={(value) => setPageSize(Number(value))}>
-        <SelectTrigger>
+        <SelectTrigger className="bg-main-light-gray ">
           <SelectValue placeholder="Select page size">{String(pageSize)}</SelectValue>
         </SelectTrigger>
         <SelectContent>
