@@ -119,7 +119,7 @@ const SearchBar: FC = () => {
         <div
           onClick={handleSearch}
           className="absolute right-0 lg:bg-main-primary  
-          py-2 px-3 lg:px-6 text-white font-semibold rounded-[8px] cursor-pointer lg:border h-full lg:hover:bg-primary-dark duration-300"
+          py-2 px-3 lg:px-6 text-white font-semibold rounded-[8px] cursor-pointer lg:border h-full lg:hover:bg-main-primary-dark duration-300"
         >
           <Search className="text-xl font-bold lg:text-white text-black-dim" />
         </div>

@@ -29,20 +29,22 @@ export default {
       },
       colors: {
         "main-primary":"#02BF6C",
-        "bg-primary": "#02BF6C",
+        "main-primary-dark": "#00854b",
         "main-secondary":"#EA244E",
         "main-light-gray":"#EFF3F4",
         "main-smoky-black":"#0D0D0D",
+        "main-secondary-dark": "#bc1a3d",
+        "main-bg-primary": "#02BF6C",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
-        "primary-dark": "#00854b",
+        
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
-        "secondary-dark": "#EB384D",
+        
         "secondary-transparent": "rgba(255, 0, 0,.1)",
         gray: "#D9D9D9",
         gainsboro: "#DDDDDD",
