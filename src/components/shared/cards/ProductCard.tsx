@@ -11,6 +11,7 @@ type ProductCardProps = {
   star: number;
   discount?: number;
   isDiscountBanner?: boolean;
+  isBestDealShow?: boolean;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -22,9 +23,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   star,
   discount,
   isDiscountBanner = false,
+  isBestDealShow = false,
 }) => {
   return (
-    <div className="flex flex-col min-h-[210px] max-h-[300px] rounded-5px overflow-hidden relative">
+    <div className="flex flex-col min-h-[210px] rounded-5px overflow-hidden relative cursor-pointer">
       {/* discount banner */}
       {isDiscountBanner && (
         <div className="flex justify-center items-center w-[34px] h-[37px] lg:w-[48px] lg:h-[53px] absolute top-0 right-5">
@@ -52,31 +54,43 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
 
       {/* texts */}
-      <div className="px-2.5 py-2 lg:p-5 bg-white w-full h-[calc(100%-152px)]">
+      <div className="px-2.5 py-2 lg:p-3 w-full h-[calc(100%-152px)]">
         {/* product name */}
         <p className="text-sm leading-6 text-textPrimary line-clamp-1">
           {productName}
         </p>
         {/* price, discount price, stars */}
-        <div className="flex items-center justify-between gap-5">
+        <div className="flex flex-col gap-1.5">
           {/* price */}
           <div className="w-full flex items-start gap-1 lg:gap-3 relative">
-            <p className="text-sm lg:text-xl leading-7 text-textPrimary font-semibold lg:font-medium">
+            <p className="text-sm lg:text-xl leading-7 text-textSecondary font-semibold lg:font-medium">
               ৳{price}
             </p>
             {/* discount price */}
             {isShowDiscountPrice && (
-              <p className="line-through text-spanish-gray text-xsm lg:text-xs font-medium mt-1">
+              <p className="line-through text-textSecondary text-xsm lg:text-xs font-medium mt-1">
                 ৳{discountPrice}
               </p>
             )}
           </div>
+          {/* best price image */}
+          {isBestDealShow && (
+            <div className="w-[77px]">
+              <Image
+                src="/icons/best_price_Img.png"
+                width={100}
+                height={100}
+                alt="best price"
+              />
+            </div>
+          )}
+
           {/* star */}
           <div className="flex items-center gap-1">
             <p className="text-xs lg:text-base lg:font-bold leading-[26px] text-spanish-gray">
               {star}
             </p>
-            <Star className="w-[12px] h-[12px] lg:w-4 lg:h-4 text-[#FFC702]" />
+            <Star className="w-[12px] h-[12px] lg:w-4 lg:h-4 text-[#FFC702] fill-[#FFC702]" />
           </div>
         </div>
       </div>

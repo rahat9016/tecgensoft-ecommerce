@@ -30,6 +30,7 @@ export default {
       colors: {
         "main-primary": "#02BF6C",
         textPrimary: "#000000",
+        "textSecondary": "#f57224",
         "bg-primary": "#02BF6C",
         "main-secondary": "#EA244E",
         primary: {
