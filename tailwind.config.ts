@@ -32,7 +32,9 @@ export default {
         textPrimary: "#000000",
         "textSecondary": "#f57224",
         "bg-primary": "#02BF6C",
-        "main-secondary": "#EA244E",
+        "main-secondary":"#EA244E",
+        "main-light-gray":"#EFF3F4",
+        "main-smoky-black":"#0D0D0D",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

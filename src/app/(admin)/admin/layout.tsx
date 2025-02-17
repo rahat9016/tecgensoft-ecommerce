@@ -22,7 +22,10 @@ export default function AdminLayout({
       <AppSidebar />
       <section className={`w-full ${poppins.variable}`}>
         <SidebarTrigger />
-        {children}
+        <div className="p-4 bg-white mr-4 rounded-lg">
+          {children}
+
+        </div>
       </section>
     </SidebarProvider>
   );
