@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
+import Header from "@/components/users/layout/header/header";
+import type {Metadata} from "next";
 import "./globals.css";
 import StoreProvider from "./StoreProvider";
-import Header from "@/components/users/layout/header/header";
+
+import NoInternet from "@/components/shared/NoInternet";
 import Footer from "@/components/users/layout/footer/footer";
 
 
@@ -19,7 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-[#E6E9EB]">
         <StoreProvider>
-          <Header/>
+          <NoInternet />
+          <Header />
           {children}
           <Footer/>
         </StoreProvider>
