@@ -5,6 +5,7 @@ import StoreProvider from "./StoreProvider";
 
 import NoInternet from "@/components/shared/NoInternet";
 import Footer from "@/components/users/layout/footer/footer";
+import QueryProvider from "./QueryProvider";
 
 
 export const metadata: Metadata = {
@@ -21,10 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-[#E6E9EB]">
         <StoreProvider>
-          <NoInternet />
+          <QueryProvider>
           <Header />
+          <NoInternet />
           {children}
           <Footer/>
+          </QueryProvider>
         </StoreProvider>
       </body>
     </html>

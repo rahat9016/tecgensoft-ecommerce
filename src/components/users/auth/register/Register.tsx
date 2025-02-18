@@ -47,7 +47,7 @@ export default function Register() {
               Register
             </Button>
           </div>
-          <p className="text-center border-b h-[12px] font-poppins text-sm lg:text-base"><span className="bg-white">Don&apos;t have an account?</span></p>
+          <p className="text-center border-b h-[12px] font-poppins text-sm lg:text-base"><span className="bg-white">Do you have an account?</span></p>
           <Link href={"/auth/signing"} className="w-full h-[38px] lg:h-[48px] border mt-3 bg-transparent hover:bg-main-primary hover:text-white font-poppins font-medium text-sm lg:text-base shadow-none  text-black focus:border-none flex items-center justify-center rounded-lg">
               Login your Account
             </Link>
