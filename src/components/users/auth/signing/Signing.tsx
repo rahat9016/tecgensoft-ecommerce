@@ -7,21 +7,25 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { signing } from "@/app/api/auth";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getCategory } from "@/app/api/category";
 
 export default function Signing() {
   const { isError, mutate, error, isPending } = useMutation({
     mutationFn: signing,
-    onSuccess: (data) => {
-      console.log("Login Successful!", data);
-      // Store token in cookies or context if needed
-    },
+    onSuccess: () => {},
   });
+  useQuery({
+    queryKey: ['repoData'],
+    queryFn: () =>
+      getCategory()
+  })
+  // console.log(data)
   const handleSigning = () => {
-    console.log("ok");
+    // console.log("ok");
     mutate();
   };
-  console.log({ isError, error });
+  // console.log({ QError });
   return (
     <div>
       <div className="grid lg:grid-cols-2 w-full h-[80vh] bg-white rounded-xl overflow-hidden">

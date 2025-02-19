@@ -1,12 +1,9 @@
 import { AxiosError, AxiosResponse } from "axios";
 import api from "./baseApi";
 import { setCookie } from "@/lib/cookie";
+import { IApiError } from "./interface";
 
-interface IApiError {
-  message: string;
-  statusCode?: number;
-  errors?: Record<string, string[]>;
-}
+
 interface IAuthResponse {
   username: string;
   email: string;
@@ -31,13 +28,13 @@ export const signing = async () => {
         username,
         email,
       } = response.data;
-      setCookie("access", access, 10);
-      setCookie("refresh", refresh, 10);
+      setCookie("access", access, 20);
+      setCookie("refresh", refresh, 20);
       const userInfo = {
         email: email,
         username: username,
       };
-      setCookie("userInformation", JSON.stringify(userInfo), 10);
+      setCookie("userInformation", JSON.stringify(userInfo), 20);
       return response?.data;
     }
     throw new Error("Unexpected response status");
