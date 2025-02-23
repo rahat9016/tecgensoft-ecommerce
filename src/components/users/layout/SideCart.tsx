@@ -1,8 +1,11 @@
 "use client";
+import TextHoverDesign from "@/components/shared/TextHoverDesign";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -34,7 +37,25 @@ const SideCart = () => {
               <SheetDescription className="hidden"></SheetDescription>
             </SheetHeader>
             {/* cart items */}
-            <CartCard />
+            <div className="h-[70vh] overflow-y-auto border border-red-700 flex flex-col gap-4">
+              <CartCard />
+              <CartCard />
+              <CartCard />
+              <CartCard />
+              <CartCard />
+              {/* subtotal part */}
+              <div className="w-full flex justify-end">
+                <p className="text-lg font-normal text-black-dim text-left">
+                  Subtotal: <span className="pl-4">৳25,000</span>
+                </p>
+              </div>
+            </div>
+            {/*  */}
+            <SheetFooter>
+              <SheetClose asChild>
+                <TextHoverDesign text="Go-To Cart" link="#" />
+              </SheetClose>
+            </SheetFooter>
           </div>
         </SheetContent>
       </Sheet>
@@ -59,23 +80,45 @@ const CartCard = () => {
           />
         </div>
         {/* details */}
-        <div className="flex justify-between border border-amber-800 w-full">
+        <div className="flex justify-between w-full">
           {/*  */}
-          <div className="w-[calc(100%-78px)] flex flex-col gap-0 flex-shrink-0">
-            <p className="text-base leading-0 text-black font-normal line-clamp-1 text-wrap">
-            Travel Backpack mahabub
-            </p>
-            <p className="text-xs leading-0 text-spanish-gray">
-              by <span>Mahabub</span>
-            </p>
+          <div className="w-[calc(100%-82px)] flex flex-col justify-between flex-shrink-0">
+            <div className="flex flex-col">
+              <p className="text-base leading-0 text-black font-normal line-clamp-1 text-wrap">
+                Travel Backpack mahabub
+              </p>
+              <p className="text-xs leading-0 text-spanish-gray">
+                by <span className="border-b border-b-slate-gray">Mahabub</span>
+              </p>
+            </div>
+            {/*  */}
+            <div className="text-base text-black font-semibold">৳25,000</div>
           </div>
-          {/*  */}
-          <div className="border border-red-600 w-[75px] flex-shrink-0">
+          {/* =========== */}
+          <div className=" w-[80px] flex-shrink-0 flex flex-col items-end justify-between">
+            {/* delete button */}
             <button>
-              <Trash2 />
+              <Trash2 className="w-5 h-5 text-[#32556E]" />
             </button>
+            {/* increment, decrement button */}
+            <div className="flex items-center border border-slate-gray rounded-5px h-[26px] w-[80px]">
+              <button
+                type="button"
+                className="border-r border-slate-gray h-full flex items-center justify-center w-[20px] text-black">
+                -
+              </button>
+              <input
+                type="string"
+                className="px-1 border-r border-slate-gray font-normal h-full flex items-center justify-center w-[40px] outline-none text-center text-sm"
+                value="3000"
+              />
+              <button
+                type="button"
+                className="border-l border-slate-gray h-full flex items-center justify-center w-[20px] disabled:text-slate-gray disabled:cursor-not-allowed">
+                +
+              </button>
+            </div>
           </div>
-          <div></div>
         </div>
       </div>
       {/* border */}
