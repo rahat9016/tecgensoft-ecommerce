@@ -1,7 +1,7 @@
-// import { getCookie, isCookieExpired, setCookie } from '@/lib/cookie';
-import axios from "axios";
-import { excludedRoutes } from "./routes";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import axios, { InternalAxiosRequestConfig } from "axios";
 import { getCookie, isCookieExpired, setCookie } from "@/lib/cookie";
+import { ICustomAxiosRequestConfig } from "./interface";
 // const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const BASE_URL = "http://tecgensoft.com";
 
@@ -18,18 +18,17 @@ let pendingAuthPromise: Promise<string | null> | null = null;
 
 const refreshAuthToken = async (): Promise<string | null> => {
   const refreshToken = getCookie("refresh");
-console.log('refresh token', refreshToken)
   if (!refreshToken || isCookieExpired("refresh")) {
     console.warn("Refresh token missing or expired");
-    return null; // Handle logout in the UI if needed
+    return null;
   }
-
   try {
-    const response = await api.post("/user/refresh-token/", { refreshToken });
-    console.log(response)
-    const { jwtToken } = response.data;
-    setCookie("jwtToken", jwtToken, 10); // 1 hour
-    return jwtToken;
+    const response = await api.post("/user/refresh-token/", {
+      refresh: refreshToken,
+    });
+    const { access } = response.data;
+    setCookie("access", access, 10);
+    return access;
   } catch (error) {
     console.error("Token refresh failed:", error);
     return null;
@@ -38,8 +37,6 @@ console.log('refresh token', refreshToken)
 
 const getToken = async (): Promise<string | null> => {
   let token = getCookie("access");
-    console.log('token', token)
-    console.log('isCookieExpired("access")----->', isCookieExpired("access"))
   if (!token || isCookieExpired("access")) {
     if (!isAuthenticating) {
       isAuthenticating = true;
@@ -55,28 +52,31 @@ const getToken = async (): Promise<string | null> => {
         }
       })();
     }
-    console.log('checking')
     token = await pendingAuthPromise;
   }
 
   return token;
 };
 
-// Axios request interceptor to inject the token
 api.interceptors.request.use(
   async (config) => {
-    if (!excludedRoutes.includes(config.url || "")) {
+    const customConfig = config as ICustomAxiosRequestConfig;
+    const authRequired = customConfig.authRequired === true;
+
+    if (authRequired) {
       const token = await getToken();
-      console.log("token-------->",  token);
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }else {
-        // window.alert('Token no in cookie, please logout')
+        customConfig.headers = {
+          ...customConfig.headers,
+          Authorization: `Bearer ${token}`,
+        };
+      } else {
+        console.warn('No token available, authorization might fail');
       }
     }
-    return config;
+
+    return customConfig as InternalAxiosRequestConfig<any>;
   },
   (error) => Promise.reject(error)
 );
-
 export default api;
