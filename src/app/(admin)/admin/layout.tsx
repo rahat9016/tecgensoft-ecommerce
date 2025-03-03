@@ -24,7 +24,6 @@ export default function AdminLayout({
         <SidebarTrigger />
         <div className="p-4 bg-white mr-4 rounded-lg">
           {children}
-
         </div>
       </section>
     </SidebarProvider>
