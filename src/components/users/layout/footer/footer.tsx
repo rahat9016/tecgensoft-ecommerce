@@ -7,7 +7,7 @@ const Footer = () => {
   const pathname = usePathname();
   return (
     <footer className="bg-[#1A1A1D] text-white">
-      {!pathname.startsWith("/admin") && (
+      {!pathname.startsWith("/admin") && !pathname.startsWith("/auth") && (
         <div className="flex flex-col gap-10">
           <div className="container mx-auto py-10 lg:grid  lg:grid-cols-12 flex flex-col gap-10 lg:gap-5 w-full">
             {/* support */}

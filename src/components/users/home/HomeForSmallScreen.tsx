@@ -1,4 +1,4 @@
-import SectionHeader from "@/components/shared/SectionHeader";
+import SectionWrapper from "@/components/shared/SectionWrapper";
 import SliderBanner from "./components/SliderBanner";
 import SliderBannerOne from "./components/SliderBannerOne";
 import DealsOfWeek from "./DealsOfWeek";
@@ -19,9 +19,23 @@ const HomeForSmallScreen = () => {
       <DealsOfWeek />
 
       {/* featured category */}
-      <div className="flex flex-col gap-2">
-        <SectionHeader title="Featured Category" showLink={false} />
-        <div className="min-h-[200px] bg-amber-300"></div>
+      {/* featred category */}
+      <div className="my-10">
+        <SectionWrapper>
+          <div className="flex flex-col gap-10 ">
+            {/* text */}
+            <div className="w-full text-center">
+              <p className="text-[18px] leading-6 font-bold">
+                Featured Category
+              </p>
+              <p className="text-sm">
+                Get Your Desired Product from Featured Category!
+              </p>
+            </div>
+            {/* cards */}
+            <div></div>
+          </div>
+        </SectionWrapper>
       </div>
 
       {/* featured products */}
