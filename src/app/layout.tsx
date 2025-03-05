@@ -1,12 +1,14 @@
 import Header from "@/components/users/layout/header/header";
-import type {Metadata} from "next";
+import type { Metadata } from "next";
 import "./globals.css";
 import StoreProvider from "./StoreProvider";
 
 import NoInternet from "@/components/shared/NoInternet";
 import Footer from "@/components/users/layout/footer/footer";
-import QueryProvider from "./QueryProvider";
 
+import SideCart from "@/components/users/layout/SideCart";
+
+import QueryProvider from "./QueryProvider";
 
 export const metadata: Metadata = {
   title: "Tecgen Soft E-commerce",
@@ -23,10 +25,12 @@ export default function RootLayout({
       <body className="bg-[#E6E9EB]">
         <StoreProvider>
           <QueryProvider>
-          <Header />
-          <NoInternet />
-          {children}
-          <Footer/>
+            <SideCart />
+            <NoInternet />
+            <Header />
+            <NoInternet />
+            {children}
+            <Footer />
           </QueryProvider>
         </StoreProvider>
       </body>

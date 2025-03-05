@@ -5,15 +5,8 @@ import SliderBannerOne from "./components/SliderBannerOne";
 import { popularProducts, products } from "./DemoData";
 import FeaturedProducts from "./FeaturedProducts";
 import PopularProducts from "./PopularProducts";
-import { useQuery } from "@tanstack/react-query";
-import { getOrder } from "@/app/api/category";
-
 const HomeForBigScreen = () => {
-  useQuery({
-    queryKey: ['repoData'],
-    queryFn: () =>
-      getOrder()
-  })
+
   return (
     <div>
       <div className="container mb-20">
