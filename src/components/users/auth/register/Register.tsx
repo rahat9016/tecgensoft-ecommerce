@@ -1,3 +1,4 @@
+"use client"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { LucideLock, LucideUser, Mail } from 'lucide-react'
@@ -5,7 +6,14 @@ import Image from 'next/image'
 import React from 'react'
 import authBg from "../../../../../public/auth.jpg";
 import Link from 'next/link'
+import { useQuery } from '@tanstack/react-query'
+import { getProductvariant } from '@/app/api/category'
 export default function Register() {
+  useQuery({
+    queryKey: ['repoData'],
+    queryFn: () =>
+      getProductvariant()
+  })
   return (
     <div>
       <div className="grid lg:grid-cols-2 w-full h-[80vh] bg-white rounded-xl overflow-hidden">
@@ -43,11 +51,11 @@ export default function Register() {
                 className="pl-10 h-12 bg-slate-50 focus:ring-2 focus:ring-purple-400 rounded-xl"
               />
             </div>
-            <Button className="w-full h-[38px] lg:h-[48px] mx-auto bg-main-primary hover:bg-primary-dark font-poppins font-bold text-sm lg:text-base shadow-md mt-1 lg:mt-3">
+            <Button className="w-full h-[38px] lg:h-[48px] mx-auto bg-main-primary hover:bg-main-primary-dark font-poppins font-bold text-sm lg:text-base shadow-md mt-1 lg:mt-3">
               Register
             </Button>
           </div>
-          <p className="text-center border-b h-[12px] font-poppins text-sm lg:text-base"><span className="bg-white">Don&apos;t have an account?</span></p>
+          <p className="text-center border-b h-[12px] font-poppins text-sm lg:text-base"><span className="bg-white">Do you have an account?</span></p>
           <Link href={"/auth/signing"} className="w-full h-[38px] lg:h-[48px] border mt-3 bg-transparent hover:bg-main-primary hover:text-white font-poppins font-medium text-sm lg:text-base shadow-none  text-black focus:border-none flex items-center justify-center rounded-lg">
               Login your Account
             </Link>

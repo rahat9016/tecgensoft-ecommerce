@@ -1,11 +1,12 @@
+"use client"
 import { Skeleton } from "@/components/ui/skeleton";
 import SliderBanner from "./components/SliderBanner";
 import SliderBannerOne from "./components/SliderBannerOne";
 import { popularProducts, products } from "./DemoData";
 import FeaturedProducts from "./FeaturedProducts";
 import PopularProducts from "./PopularProducts";
-
 const HomeForBigScreen = () => {
+
   return (
     <div>
       <div className="container mb-20">
