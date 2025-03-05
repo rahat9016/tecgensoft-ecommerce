@@ -3,7 +3,6 @@ import api from "./baseApi";
 import { setCookie } from "@/lib/cookie";
 import { IApiError } from "./interface";
 
-
 interface IAuthResponse {
   username: string;
   email: string;
@@ -28,6 +27,7 @@ export const signing = async () => {
         username,
         email,
       } = response.data;
+      // console.log(jwtDecode(access))
       setCookie("access", access, 20);
       setCookie("refresh", refresh, 20);
       const userInfo = {
