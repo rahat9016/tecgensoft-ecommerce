@@ -12,14 +12,13 @@ import {
 import { FormModal } from "@/components/shared/FormModal";
 import { DataTable } from "@/components/shared/Table";
 import { Button } from "@/components/ui/button";
-
 import { usePagination } from "@/hooks/usePagination";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import ControlledInputField from "@/components/shared/ControlledInputField";
-// import InputLabel from "@/components/shared/InputLabel";
 import SearchNSelect from "@/components/shared/SearchNSelect";
+import ToggleSwitchInputButton from "@/components/shared/ToggleSwitchInputButton";
 
 const data = [
   {
@@ -127,29 +126,16 @@ export default function Category() {
           onClose={() => setOpen(false)}
           onSubmit={methods.handleSubmit(onSubmit)}
         >
-          <div className="flex flex-col gap-2">
-            <div>
-              {/* <InputLabel
-                label="Category"
-                className="text-main-smoky-black"
-                required
-              /> */}
+          <div className="flex flex-col gap-2">            
               <ControlledInputField
                 label="Category"
                 name="category"
                 required
                 type="text"
                 placeholder="Category Name"
-              />
-            </div>
-            <div>
-              {/* <InputLabel
-                label="Country"
-                className="text-main-smoky-black"
-                required
-              /> */}
+              />            
               <SearchNSelect label="Country" name="country" required placeholder="Select country" />
-            </div>
+              <ToggleSwitchInputButton name="is_active"  />
           </div>
         </FormModal>
       </FormProvider>

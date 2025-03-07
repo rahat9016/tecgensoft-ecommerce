@@ -39,15 +39,15 @@ const SearchNSelect: React.FC<ControlledInputFieldProps> = ({
           options={countryOptions}
           placeholder={placeholder}
           styles={{
-            control: (provided, state) => ({
+            control: (provided) => ({
               ...provided,
-              border: state.isFocused ? "1px solid #ccc" : "1px solid #d1d5db",
+              border: "1px solid #D1D5DB",
               outline: "none",
               height: "44px",
               padding: "2px",
-              borderRadius: "8px",
-              fontSize: "0.875rem",
-              boxShadow: "none",
+              borderRadius: "6px",
+              fontSize: "1rem",
+              boxShadow: "0 1px 2px 0 rgb(0 0 0 0.05)",
             }),
             input: (provided) => ({
               ...provided,
