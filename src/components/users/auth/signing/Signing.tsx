@@ -9,22 +9,34 @@ import { useMutation } from "@tanstack/react-query";
 import { FormProvider, useForm } from "react-hook-form";
 import ControlledInputField from "@/components/shared/ControlledInputField";
 import loginValidationSchema from "./Schema";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import InputLabel from "@/components/shared/InputLabel";
+import { toast } from "sonner";
 export default function Signing() {
-  const { isError, error, isPending } = useMutation({
+  const { isError, error, isPending, isSuccess, mutateAsync } = useMutation({
     mutationFn: signing,
     onSuccess: () => {},
   });
-
+  console.log(isSuccess);
   const methods = useForm({
     mode: "onChange",
     resolver: yupResolver(loginValidationSchema),
     defaultValues: {},
   });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = (data:any) => console.log(data)
-  // console.log({ QError });
+  const onSubmit = (data: any) => {
+    mutateAsync(data).then((res) => {
+      if (res) {
+        toast.success("Login Successful", {
+          position: "bottom-left",
+          style: {
+            backgroundColor: "#4CAF50",
+            color: "#fff",
+          },
+        });
+      }
+    });
+  };
   return (
     <div>
       <div className="grid lg:grid-cols-2 w-full h-[80vh] bg-white rounded-xl overflow-hidden">
@@ -38,28 +50,28 @@ export default function Signing() {
             </p>
           </div>
           <FormProvider {...methods}>
-            <form  onSubmit={methods?.handleSubmit(onSubmit)}>
+            <form onSubmit={methods?.handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-3 lg:gap-5">
                 <div>
                   <InputLabel label="Username" required />
-                <ControlledInputField
+                  <ControlledInputField
                     name="username"
                     type="text"
                     placeholder="Enter your username"
-                    className="h-12 bg-slate-50 focus:ring-2 focus:ring-purple-400 rounded-xl px-3"
+                    className="h-12 bg-white  focus:ring-0 rounded-xl px-3 shadow-none"
                   />
                 </div>
                 <div className="relative">
-                <InputLabel label="Password" required />
+                  <InputLabel label="Password" required />
                   <ControlledInputField
                     name="password"
                     type="password"
                     placeholder="Password"
-                    className="h-12 bg-white focus:ring-2 focus:ring-purple-400 rounded-xl px-3"
+                    className="h-12 bg-white focus:ring-0 rounded-xl px-3 shadow-none"
                   />
                 </div>
                 {isError && error && (
-                  <div className="h-[38px] w-full flex items-center justify-center bg-rose-200 rounded-md text-rose-700 text-sm font-poppins">
+                  <div className="h-[38px] w-full flex items-center justify-center bg-rose-200 rounded-md text-rose-700 text-sm font-poppins px-2 py-2">
                     <p>{error.message && error.message}</p>
                   </div>
                 )}

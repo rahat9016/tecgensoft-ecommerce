@@ -11,14 +11,12 @@ interface IAuthResponse {
     refresh: string;
   };
 }
-export const signing = async () => {
+export const signing = async (data: { username: string; password: string }) => {
   try {
+    console.log(data);
     const response: AxiosResponse<IAuthResponse> = await api.post(
       "/user/signin/",
-      {
-        username: "minhazur9016",
-        password: "1",
-      }
+      JSON.stringify(data)
     );
     if (response.status === 201) {
       // Set login information in cookie.
