@@ -14,7 +14,7 @@ export default function InputLabel({
       {label && (
         <p
           className={cn(
-            `text-arsenic text-sm mb-1 font-normal font-poppins`,
+            `text-arsenic text-sm mb-1 font-medium font-poppins`,
             className
           )}
         >

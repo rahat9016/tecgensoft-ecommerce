@@ -19,6 +19,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import ControlledInputField from "@/components/shared/ControlledInputField";
 import InputLabel from "@/components/shared/InputLabel";
+import SearchNSelect from "@/components/shared/SearchNSelect";
 
 const data = [
   {
@@ -115,7 +116,7 @@ export default function Category() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = (data: any) => {
-    console.log(data);
+    console.log(JSON.stringify(data));
     setOpen(false);
   };
   return (
@@ -126,8 +127,30 @@ export default function Category() {
           onClose={() => setOpen(false)}
           onSubmit={methods.handleSubmit(onSubmit)}
         >
-          <InputLabel label="Category" className="text-main-smoky-black" required />
-          <ControlledInputField name="category" type="text" placeholder="Category Name"/>
+          <div className="flex flex-col gap-2">
+            <div>
+              {/* <InputLabel
+                label="Category"
+                className="text-main-smoky-black"
+                required
+              /> */}
+              <ControlledInputField
+                label="Category"
+                name="category"
+                required
+                type="text"
+                placeholder="Category Name"
+              />
+            </div>
+            <div>
+              {/* <InputLabel
+                label="Country"
+                className="text-main-smoky-black"
+                required
+              /> */}
+              <SearchNSelect label="Country" name="country" required placeholder="Select country" />
+            </div>
+          </div>
         </FormModal>
       </FormProvider>
       <DataTable
