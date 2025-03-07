@@ -2,29 +2,28 @@
 import Image from "next/image";
 import React from "react";
 import authBg from "../../../../../public/auth.jpg";
-import { LucideLock, LucideUser } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { signing } from "@/app/api/auth";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCategory } from "@/app/api/category";
-
+import { useMutation } from "@tanstack/react-query";
+import { FormProvider, useForm } from "react-hook-form";
+import ControlledInputField from "@/components/shared/ControlledInputField";
+import loginValidationSchema from "./Schema";
+import { yupResolver } from '@hookform/resolvers/yup';
+import InputLabel from "@/components/shared/InputLabel";
 export default function Signing() {
-  const { isError, mutate, error, isPending } = useMutation({
+  const { isError, error, isPending } = useMutation({
     mutationFn: signing,
     onSuccess: () => {},
   });
-  useQuery({
-    queryKey: ['repoData'],
-    queryFn: () =>
-      getCategory()
-  })
-  // console.log(data)
-  const handleSigning = () => {
-    // console.log("ok");
-    mutate();
-  };
+
+  const methods = useForm({
+    mode: "onChange",
+    resolver: yupResolver(loginValidationSchema),
+    defaultValues: {},
+  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = (data:any) => console.log(data)
   // console.log({ QError });
   return (
     <div>
@@ -38,42 +37,43 @@ export default function Signing() {
               Very good works are waiting for you Login Now!!!
             </p>
           </div>
-          <div className="flex flex-col gap-3 lg:gap-5">
-            <div className="relative ">
-              <LucideUser
-                size={18}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
-              />
-              <Input
-                type="text"
-                placeholder="Username"
-                className="pl-10 h-12 bg-slate-50 focus:ring-2 focus:ring-purple-400 rounded-xl"
-              />
-            </div>
-            <div className="relative">
-              <LucideLock
-                size={18}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
-              />
-              <Input
-                type="password"
-                placeholder="Password"
-                className="pl-10 h-12 bg-slate-50 focus:ring-2 focus:ring-purple-400 rounded-xl"
-              />
-            </div>
-            {isError && error && (
-              <div className="h-[38px] w-full flex items-center justify-center bg-rose-200 rounded-md text-rose-700 text-sm font-poppins">
-                <p>{error.message && error.message}</p>
+          <FormProvider {...methods}>
+            <form  onSubmit={methods?.handleSubmit(onSubmit)}>
+              <div className="flex flex-col gap-3 lg:gap-5">
+                <div>
+                  <InputLabel label="Username" required />
+                <ControlledInputField
+                    name="username"
+                    type="text"
+                    placeholder="Enter your username"
+                    className="h-12 bg-slate-50 focus:ring-2 focus:ring-purple-400 rounded-xl px-3"
+                  />
+                </div>
+                <div className="relative">
+                <InputLabel label="Password" required />
+                  <ControlledInputField
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    className="h-12 bg-white focus:ring-2 focus:ring-purple-400 rounded-xl px-3"
+                  />
+                </div>
+                {isError && error && (
+                  <div className="h-[38px] w-full flex items-center justify-center bg-rose-200 rounded-md text-rose-700 text-sm font-poppins">
+                    <p>{error.message && error.message}</p>
+                  </div>
+                )}
+                <Button
+                  disabled={isPending}
+                  type="submit"
+                  className="w-full h-[38px] lg:h-[48px] mx-auto bg-main-primary hover:bg-main-primary-dark font-poppins font-bold text-sm lg:text-base shadow-md mt-1 lg:mt-3"
+                >
+                  {isPending ? "Loading" : "Login"}
+                </Button>
               </div>
-            )}
-            <Button
-              disabled={isPending}
-              onClick={handleSigning}
-              className="w-full h-[38px] lg:h-[48px] mx-auto bg-main-primary hover:bg-main-primary-dark font-poppins font-bold text-sm lg:text-base shadow-md mt-1 lg:mt-3"
-            >
-              {isPending ? "Loading" : "Login"}
-            </Button>
-          </div>
+            </form>
+          </FormProvider>
+
           <p className="text-center border-b h-[12px] font-poppins text-sm lg:text-base">
             <span className="bg-white">Don&apos;t have an account?</span>
           </p>
