@@ -18,38 +18,3 @@ export const getCategory = async () => {
     throw { message: "Unknown error occurred" } as IApiError;
   }
 };
-export const getOrder = async () => {
-  try {
-    const response = await api.get("/campaign/admin-dealoftheweek-create/");
-    if (response.status === 200) {
-      return response.data;
-    }
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      const apiError: IApiError = error.response?.data ?? {
-        message: "Something went wrong",
-      };
-      throw apiError;
-    }
-    throw { message: "Unknown error occurred" } as IApiError;
-  }
-};
-
-export const getProductvariant = async () => {
-  try {
-    const response = await api.get(
-      "/product/users-productvariant-attribute-list/"
-    );
-    if (response.status === 200) {
-      return response.data;
-    }
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      const apiError: IApiError = error.response?.data ?? {
-        message: "Something went wrong",
-      };
-      throw apiError;
-    }
-    throw { message: "Unknown error occurred" } as IApiError;
-  }
-};

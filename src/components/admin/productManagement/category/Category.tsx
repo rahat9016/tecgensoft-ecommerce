@@ -19,21 +19,23 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import ControlledInputField from "@/components/shared/ControlledInputField";
 import InputLabel from "@/components/shared/InputLabel";
+import { useQuery } from "@tanstack/react-query";
+import { getCategory } from "@/app/api/category";
 
-const data = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
-  },
-];
+// const data = [
+//   {
+//     id: "m5gr84i9",
+//     amount: 316,
+//     status: "success",
+//     email: "ken99@yahoo.com",
+//   },
+//   {
+//     id: "m5gr84i9",
+//     amount: 316,
+//     status: "success",
+//     email: "ken99@yahoo.com",
+//   },
+// ];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const columns: ColumnDef<any>[] = [
   {
@@ -105,9 +107,15 @@ const columns: ColumnDef<any>[] = [
 ];
 
 export default function Category() {
+  const { open, setOpen } = useOpen();
   const { page, setPage, pageSize, setPageSize, pageCount, setSearch } =
     usePagination();
-  const { open, setOpen } = useOpen();
+  const { data } = useQuery({
+      queryKey: ['category'],
+      queryFn: () =>
+        getCategory()
+    })
+  console.log(data)
   const methods = useForm({
     mode: "onChange",
     defaultValues: {},
@@ -131,7 +139,7 @@ export default function Category() {
         </FormModal>
       </FormProvider>
       <DataTable
-        data={data}
+        data={[]}
         columns={columns}
         isLoading={false}
         page={page}

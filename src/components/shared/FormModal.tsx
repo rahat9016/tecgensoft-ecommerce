@@ -5,7 +5,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 interface IFormModalProps<T> {
@@ -26,9 +25,6 @@ export function FormModal<T>({
   };
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-3xl bg-[#EFF3F4]">
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
