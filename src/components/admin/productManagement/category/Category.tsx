@@ -18,7 +18,7 @@ import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import ControlledInputField from "@/components/shared/ControlledInputField";
-import InputLabel from "@/components/shared/InputLabel";
+// import InputLabel from "@/components/shared/InputLabel";
 import SearchNSelect from "@/components/shared/SearchNSelect";
 
 const data = [
