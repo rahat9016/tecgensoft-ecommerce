@@ -11,6 +11,7 @@ interface IAuthResponse {
     access: string;
     refresh: string;
   };
+  message: string;
 }
 export const signing = async (data: { username: string; password: string }) => {
   try {
@@ -25,15 +26,14 @@ export const signing = async (data: { username: string; password: string }) => {
         token: { access, refresh },
         username,
         email,
-        role
+        role,
       } = response.data;
-      // console.log(jwtDecode(access))
       setCookie("access", access, 20);
       setCookie("refresh", refresh, 20);
       const userInfo = {
         email: email,
         username: username,
-        role: role
+        role: role,
       };
       setCookie("userInformation", JSON.stringify(userInfo), 20);
       return response?.data;
@@ -47,5 +47,34 @@ export const signing = async (data: { username: string; password: string }) => {
       throw apiError;
     }
     throw { message: "Unknown error occurred" } as IApiError;
+  }
+};
+export const register = async (data: {
+  email: string;
+  username: string;
+  password: string;
+}) => {
+  try {
+    const response: AxiosResponse<IAuthResponse> = await api.post(
+      "/user/signup/",
+      JSON.stringify(data)
+    );
+    if (response.status === 201) {
+      return response?.data;
+    }
+    if (response.status === 200 && response.data?.message) {
+      throw { message: response.data.message } as IApiError;
+    }
+    throw new Error("Unexpected response status");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    if (error instanceof AxiosError) {
+      console.log(error.message);
+      const apiError: IApiError = error.response?.data ?? {
+        message: "Something went wrong",
+      };
+      throw apiError;
+    }
+    throw { message: error.message || "Unknown error occurred" } as IApiError;
   }
 };
