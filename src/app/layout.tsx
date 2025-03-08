@@ -1,6 +1,7 @@
 import Header from "@/components/users/layout/header/header";
 import type { Metadata } from "next";
 import "./globals.css";
+import "@smastrom/react-rating/style.css";
 import StoreProvider from "./StoreProvider";
 
 import NoInternet from "@/components/shared/NoInternet";

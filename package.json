@@ -22,6 +22,7 @@
     "@radix-ui/react-tooltip": "^1.1.7",
     "@react-icons/all-files": "^4.1.0",
     "@reduxjs/toolkit": "^2.5.0",
+    "@smastrom/react-rating": "^1.5.0",
     "@tanstack/react-query": "^5.65.0",
     "@tanstack/react-table": "^8.20.6",
     "axios": "^1.7.9",
