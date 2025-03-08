@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 export default function StoreProvider({ children }: { children: ReactNode; }) {
     const storeRef = useRef<AppStore>(null);
     if (!storeRef.current) {
-        storeRef.current = makeStore();
+        storeRef.current = makeStore();        
         storeRef.current.dispatch(setUserInformation(JSON.parse(getCookie('userInformation'))));        
     }    
     return <Provider store={storeRef.current}>{children}</Provider>;
