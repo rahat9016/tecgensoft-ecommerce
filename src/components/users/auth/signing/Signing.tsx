@@ -12,12 +12,16 @@ import loginValidationSchema from "./Schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputLabel from "@/components/shared/InputLabel";
 import { toast } from "sonner";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { setUserInformation } from "@/lib/redux/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 export default function Signing() {
-  const { isError, error, isPending, isSuccess, mutateAsync } = useMutation({
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const { isError, error, isPending, mutateAsync } = useMutation({
     mutationFn: signing,
     onSuccess: () => {},
   });
-  console.log(isSuccess);
   const methods = useForm({
     mode: "onChange",
     resolver: yupResolver(loginValidationSchema),
@@ -34,6 +38,12 @@ export default function Signing() {
             color: "#fff",
           },
         });
+        dispatch(setUserInformation(res))
+        if(res && res.role[0].toLocaleLowerCase() === "admin"){
+          router.push('/admin')
+        }else{
+          router.push('/')
+        }
       }
     });
   };

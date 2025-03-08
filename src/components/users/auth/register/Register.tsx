@@ -6,14 +6,9 @@ import Image from 'next/image'
 import React from 'react'
 import authBg from "../../../../../public/auth.jpg";
 import Link from 'next/link'
-import { useQuery } from '@tanstack/react-query'
-import { getProductvariant } from '@/app/api/category'
+
 export default function Register() {
-  useQuery({
-    queryKey: ['repoData'],
-    queryFn: () =>
-      getProductvariant()
-  })
+
   return (
     <div>
       <div className="grid lg:grid-cols-2 w-full h-[80vh] bg-white rounded-xl overflow-hidden">

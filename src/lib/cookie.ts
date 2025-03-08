@@ -15,6 +15,7 @@ export const setCookie = (name: string, value: string, time: number) => {
 };
 
 export const getCookie = (name: string) => {
+    if (typeof document === "undefined") return null;
     const nameEQ = name + "=";
     const cookiesArray = document.cookie.split(";");
 

@@ -6,6 +6,7 @@ import { IApiError } from "./interface";
 interface IAuthResponse {
   username: string;
   email: string;
+  role: string[];
   token: {
     access: string;
     refresh: string;
@@ -24,6 +25,7 @@ export const signing = async (data: { username: string; password: string }) => {
         token: { access, refresh },
         username,
         email,
+        role
       } = response.data;
       // console.log(jwtDecode(access))
       setCookie("access", access, 20);
@@ -31,6 +33,7 @@ export const signing = async (data: { username: string; password: string }) => {
       const userInfo = {
         email: email,
         username: username,
+        role: role
       };
       setCookie("userInformation", JSON.stringify(userInfo), 20);
       return response?.data;

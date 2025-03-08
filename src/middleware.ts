@@ -1,23 +1,30 @@
-
 // import { getCookie } from "./lib/cookie";
 
-export function middleware() {
-//   const path = request.nextUrl.pathname;
-// //   const isPublicPath: boolean = path === "/login" || path === "/register";
+import { NextRequest, NextResponse } from "next/server";
 
-//   const token = request.cookies.get("access")?.value;
-// console.log(token)
+export function middleware(request: NextRequest) {
+  const path = request.nextUrl.pathname;
 
+  const isPublicPath: boolean =
+    path === "/auth/signing" || path === "/auth/register";
+  const token = request.cookies.get("access")?.value;
 
-//   if (isPublicPath && token) {
-//     return NextResponse.redirect(new URL("/", request.nextUrl));
-//   }
-//   // if not token and not match with public path then redirect to login page
-//   if (!isPublicPath && !token) {
-//     return NextResponse.redirect(new URL("/login", request.nextUrl));
-//   }
+  if (isPublicPath && token) {
+    return NextResponse.redirect(new URL("/", request.nextUrl));
+  }
+  //   // if not token and not match with public path then redirect to login page
+  // if (!isPublicPath && !token) {
+  //   return NextResponse.redirect(new URL("/auth/signing", request.nextUrl));
+  // }
 }
 
 export const config = {
-  matcher: ["/auth/signing", "/register", "/dashboard/:path*", "/", "/user", "/role"],
+  matcher: [
+    "/auth/signing",
+    "/auth/register",
+    "/admin/:path*",
+    "/",
+    "/user",
+    "/role",
+  ],
 };
