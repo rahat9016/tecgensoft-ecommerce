@@ -9,6 +9,7 @@ import Footer from "@/components/users/layout/footer/footer";
 import SideCart from "@/components/users/layout/SideCart";
 
 import QueryProvider from "./QueryProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Tecgen Soft E-commerce",
@@ -29,6 +30,7 @@ export default function RootLayout({
             <NoInternet />
             <Header />
             <NoInternet />
+            <Toaster />
             {children}
             <Footer />
           </QueryProvider>

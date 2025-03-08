@@ -4,9 +4,9 @@ import { IInitialState } from "./interface";
 const initialState: IInitialState = {
     userInformation:{
         id: "",
-        name: "",
+        username: "",
         email: "",
-        role: "",
+        role: [],
     },
 }
 

@@ -47,6 +47,7 @@ export default {
         
         "secondary-transparent": "rgba(255, 0, 0,.1)",
         gray: "#D9D9D9",
+        grayLight:"#808080",
         gainsboro: "#DDDDDD",
         light: "#E6E6E6",
         "gray-dark": "#7A7A7A",
