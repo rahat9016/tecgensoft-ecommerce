@@ -8,7 +8,7 @@ import ProductSpecifics from "./ProductSpecifics";
 const ProductDetails = () => {
   return (
     <div className="container mx-auto flex flex-col">
-      {/* breadcum */}
+      {/* breadecum */}
       <div className="my-4">Home / Custom / Work in process</div>
 
       {/*========= product details part ======== */}
