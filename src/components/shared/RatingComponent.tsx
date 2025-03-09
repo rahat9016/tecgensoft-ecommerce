@@ -19,7 +19,7 @@ const RatingComponent: React.FC<RatingComponentProps> = ({
   }, [value]);
 
   return (
-    <div className="w-[120px]">
+    <div className="w-[80px]">
       <Rating
         readOnly={isReadOnly}
         value={rating}
