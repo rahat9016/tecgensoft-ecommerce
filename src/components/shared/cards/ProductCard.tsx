@@ -1,5 +1,6 @@
-import {Star} from "lucide-react";
+import { Star } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 type ProductCardProps = {
@@ -12,6 +13,7 @@ type ProductCardProps = {
   discount?: number;
   isDiscountBanner?: boolean;
   isBestDealShow?: boolean;
+  href?: string;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -24,9 +26,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
   discount,
   isDiscountBanner = false,
   isBestDealShow = false,
+  href = "#",
 }) => {
   return (
-    <div className="flex flex-col min-h-[210px] rounded-5px overflow-hidden relative cursor-pointer">
+    <Link
+      href={href}
+      className="flex flex-col min-h-[210px] rounded-5px overflow-hidden relative cursor-pointer"
+    >
       {/* discount banner */}
       {isDiscountBanner && (
         <div className="flex justify-center items-center w-[34px] h-[37px] lg:w-[48px] lg:h-[53px] absolute top-0 right-5">
@@ -94,7 +100,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
