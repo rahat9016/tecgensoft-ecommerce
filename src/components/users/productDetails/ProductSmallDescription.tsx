@@ -7,7 +7,7 @@ import { FaCartPlus } from "react-icons/fa";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
-const ProductDescription = () => {
+const ProductSmallDescription = () => {
   const [quantity, setQuantity] = React.useState(1);
 
   const increment = () => {
@@ -228,4 +228,4 @@ const ProductDescription = () => {
   );
 };
 
-export default ProductDescription;
+export default ProductSmallDescription;
