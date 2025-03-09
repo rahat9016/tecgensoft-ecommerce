@@ -2,30 +2,51 @@
 import Image from "next/image";
 import React from "react";
 import authBg from "../../../../../public/auth.jpg";
-import { LucideLock, LucideUser } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { signing } from "@/app/api/auth";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCategory } from "@/app/api/category";
-
+import { useMutation } from "@tanstack/react-query";
+import { FormProvider, useForm } from "react-hook-form";
+import ControlledInputField from "@/components/shared/ControlledInputField";
+import loginValidationSchema from "./Schema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import InputLabel from "@/components/shared/InputLabel";
+import { toast } from "sonner";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { setUserInformation } from "@/lib/redux/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 export default function Signing() {
-  const { isError, mutate, error, isPending } = useMutation({
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const { isError, error, isPending, mutateAsync } = useMutation({
     mutationFn: signing,
     onSuccess: () => {},
   });
-  useQuery({
-    queryKey: ['repoData'],
-    queryFn: () =>
-      getCategory()
-  })
-  // console.log(data)
-  const handleSigning = () => {
-    // console.log("ok");
-    mutate();
+  const methods = useForm({
+    mode: "onChange",
+    resolver: yupResolver(loginValidationSchema),
+    defaultValues: {},
+  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = (data: any) => {
+    mutateAsync(data).then((res) => {
+      if (res) {
+        toast.success("Login Successful", {
+          position: "bottom-left",
+          style: {
+            backgroundColor: "#4CAF50",
+            color: "#fff",
+          },
+        });
+        dispatch(setUserInformation(res))
+        if(res && res.role[0].toLocaleLowerCase() === "admin"){
+          router.push('/admin')
+        }else{
+          router.push('/')
+        }
+      }
+    });
   };
-  // console.log({ QError });
   return (
     <div>
       <div className="grid lg:grid-cols-2 w-full h-[80vh] bg-white rounded-xl overflow-hidden">
@@ -38,42 +59,43 @@ export default function Signing() {
               Very good works are waiting for you Login Now!!!
             </p>
           </div>
-          <div className="flex flex-col gap-3 lg:gap-5">
-            <div className="relative ">
-              <LucideUser
-                size={18}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
-              />
-              <Input
-                type="text"
-                placeholder="Username"
-                className="pl-10 h-12 bg-slate-50 focus:ring-2 focus:ring-purple-400 rounded-xl"
-              />
-            </div>
-            <div className="relative">
-              <LucideLock
-                size={18}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
-              />
-              <Input
-                type="password"
-                placeholder="Password"
-                className="pl-10 h-12 bg-slate-50 focus:ring-2 focus:ring-purple-400 rounded-xl"
-              />
-            </div>
-            {isError && error && (
-              <div className="h-[38px] w-full flex items-center justify-center bg-rose-200 rounded-md text-rose-700 text-sm font-poppins">
-                <p>{error.message && error.message}</p>
+          <FormProvider {...methods}>
+            <form onSubmit={methods?.handleSubmit(onSubmit)}>
+              <div className="flex flex-col gap-3 lg:gap-5">
+                <div>
+                  <InputLabel label="Username" required />
+                  <ControlledInputField
+                    name="username"
+                    type="text"
+                    placeholder="Enter your username"
+                    className="h-12 bg-white  focus:ring-0 rounded-xl px-3 shadow-none"
+                  />
+                </div>
+                <div className="relative">
+                  <InputLabel label="Password" required />
+                  <ControlledInputField
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    className="h-12 bg-white focus:ring-0 rounded-xl px-3 shadow-none"
+                  />
+                </div>
+                {isError && error && (
+                  <div className="h-[38px] w-full flex items-center justify-center bg-rose-200 rounded-md text-rose-700 text-sm font-poppins px-2 py-2">
+                    <p>{error.message && error.message}</p>
+                  </div>
+                )}
+                <Button
+                  disabled={isPending}
+                  type="submit"
+                  className="w-full h-[38px] lg:h-[48px] mx-auto bg-main-primary hover:bg-main-primary-dark font-poppins font-bold text-sm lg:text-base shadow-md mt-1 lg:mt-3"
+                >
+                  {isPending ? "Loading" : "Login"}
+                </Button>
               </div>
-            )}
-            <Button
-              disabled={isPending}
-              onClick={handleSigning}
-              className="w-full h-[38px] lg:h-[48px] mx-auto bg-main-primary hover:bg-main-primary-dark font-poppins font-bold text-sm lg:text-base shadow-md mt-1 lg:mt-3"
-            >
-              {isPending ? "Loading" : "Login"}
-            </Button>
-          </div>
+            </form>
+          </FormProvider>
+
           <p className="text-center border-b h-[12px] font-poppins text-sm lg:text-base">
             <span className="bg-white">Don&apos;t have an account?</span>
           </p>

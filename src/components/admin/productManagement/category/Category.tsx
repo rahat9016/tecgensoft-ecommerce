@@ -1,7 +1,7 @@
 "use client";
-import { Modal } from "@/components/shared/Modal";
-import { DataTable } from "@/components/shared/Table";
-import { Button } from "@/components/ui/button";
+import React from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import useOpen from "@/hooks/useOpen";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -9,26 +9,33 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { FormModal } from "@/components/shared/FormModal";
+import { DataTable } from "@/components/shared/Table";
+import { Button } from "@/components/ui/button";
+
 import { usePagination } from "@/hooks/usePagination";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import React from "react";
+import ControlledInputField from "@/components/shared/ControlledInputField";
+import InputLabel from "@/components/shared/InputLabel";
+import { useQuery } from "@tanstack/react-query";
+import { getCategory } from "@/app/api/category";
 
-const data = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
-  },
-];
+// const data = [
+//   {
+//     id: "m5gr84i9",
+//     amount: 316,
+//     status: "success",
+//     email: "ken99@yahoo.com",
+//   },
+//   {
+//     id: "m5gr84i9",
+//     amount: 316,
+//     status: "success",
+//     email: "ken99@yahoo.com",
+//   },
+// ];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const columns: ColumnDef<any>[] = [
   {
@@ -100,14 +107,39 @@ const columns: ColumnDef<any>[] = [
 ];
 
 export default function Category() {
+  const { open, setOpen } = useOpen();
   const { page, setPage, pageSize, setPageSize, pageCount, setSearch } =
     usePagination();
+  const { data } = useQuery({
+      queryKey: ['category'],
+      queryFn: () =>
+        getCategory()
+    })
+  console.log(data)
+  const methods = useForm({
+    mode: "onChange",
+    defaultValues: {},
+  });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = (data: any) => {
+    console.log(data);
+    setOpen(false);
+  };
   return (
     <div className="px-2">
-      <Modal />
+      <FormProvider {...methods}>
+        <FormModal
+          isOpen={open}
+          onClose={() => setOpen(false)}
+          onSubmit={methods.handleSubmit(onSubmit)}
+        >
+          <InputLabel label="Category" className="text-main-smoky-black" required />
+          <ControlledInputField name="category" type="text" placeholder="Category Name"/>
+        </FormModal>
+      </FormProvider>
       <DataTable
-        data={data}
+        data={[]}
         columns={columns}
         isLoading={false}
         page={page}
@@ -116,7 +148,7 @@ export default function Category() {
         setPage={setPage}
         setPageSize={setPageSize}
         setSearch={setSearch}
-        createFn={() => console.log("clicking...")}
+        createFn={() => setOpen((prev) => !prev)}
       />
     </div>
   );

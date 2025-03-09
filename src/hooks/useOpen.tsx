@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-function useDebounce() {
+function useOpen() {
   const [open, setOpen] = useState<boolean>(false);
 
   return { open, setOpen };
 }
-export default useDebounce;
+export default useOpen;
