@@ -14,11 +14,11 @@ const ProgressBar = ({
       <p className="text-xs text-black-dark w-[56px] lg-w-[80px] capitalize pr-1">
         {progressValue}
       </p>
-      <div className="progress_outer">
+      <div className="relative h-[7px] w-full rounded-[12px] overflow-hidden bg-gray">
         <div
-          className="progress_inner"
-          style={{ "--width": `${percentage}%` } as React.CSSProperties}
-        />
+          className={`bg-[#f7af23] h-full rounded-[12px] `}
+          style={{ width: `${percentage}%` }}
+        ></div>
       </div>
       <p className="w-[36px] pl-2 text-xs text-black-dark">{rating}</p>
     </div>

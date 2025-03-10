@@ -6,6 +6,14 @@ import RatingComponent from "@/components/shared/RatingComponent";
 import ProgressBar from "../components/ProgressBar";
 import NoReviewYet from "../components/NoReviewYet";
 import Image from "next/image";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 type ReviewsProps = {
   variant: IVariant | undefined;
@@ -26,7 +34,7 @@ const Reviews: React.FC<ReviewsProps> = ({ variant, productReviews }) => {
   } = variant;
 
   const ratingRoundFigure = getRatingRoundFigure(averageRating);
-  
+
   function getRatingAverage(totalRating: number, rating: number) {
     if (totalRating <= 0) {
       return 0;
@@ -51,7 +59,7 @@ const Reviews: React.FC<ReviewsProps> = ({ variant, productReviews }) => {
   };
 
   return (
-    <div className="px-5 py-6">
+    <div className="px-5 py-6 bg-white">
       {/* Review's header */}
       <CustomerDRFHeader header={`Customer Reviews (${totalRatingCount})`} />
       {/* count star */}
@@ -130,17 +138,7 @@ const Reviews: React.FC<ReviewsProps> = ({ variant, productReviews }) => {
                   <div className="flex">
                     <div className="w-1/2 flex flex-col-reverse lg:flex-col">
                       <div className="flex items-center gap-1">
-                        {/* <Rating
-                          initialRating={rating}
-                          emptySymbol={
-                            <FaStar className="text-light text-sm mr-1" />
-                          }
-                          fullSymbol={
-                            <FaStar className="text-[#F2AE14] text-sm mr-1" />
-                          }
-                          readonly
-                        /> */}
-                        <RatingComponent isReadOnly={true} value={rating} />s
+                        <RatingComponent isReadOnly={true} value={rating} />
                         <p className="text-silver text-xsm">({rating}/5)</p>
                       </div>
                       <h5 className=" text-xs text-black-dim">
@@ -165,29 +163,57 @@ const Reviews: React.FC<ReviewsProps> = ({ variant, productReviews }) => {
                       {images && images?.length > 0
                         ? images.slice(0, 4).map((img, index) => {
                             return (
-                              <div
-                                key={img}
-                                className={`cursor-pointer border overflow-hidden border-light p-1  rounded-[4px] w-[75px] h-[75px] relative ${
-                                  index === 4
-                                    ? "before:absolute before:w-[75px] before:h-[75px] before:bg-[#0000004d] "
-                                    : ""
-                                }`}
-                                // onClick={() => handleReviewImagesClick(images)}
-                                // role="button"
-                                // tabIndex={0}
-                                // onKeyDown={(e) => {
-                                //   if (e.key === "Enter" || e.key === " ") {
-                                //     handleReviewImagesClick(img);
-                                //   }
-                                // }}
-                              >
-                                <Image
-                                  src={img}
-                                  alt="Review"
-                                  width={100}
-                                  height={100}
-                                  className="w-full h-full object-cover"
-                                />
+                              // <div
+                              //   key={img}
+                              //   className={`cursor-pointer border overflow-hidden border-light p-1  rounded-[4px] w-[75px] h-[75px] relative ${
+                              //     index === 4
+                              //       ? "before:absolute before:w-[75px] before:h-[75px] before:bg-[#0000004d] "
+                              //       : ""
+                              //   }`}
+                              // >
+                              //   <Image
+                              //     src={img}
+                              //     alt="Review"
+                              //     width={100}
+                              //     height={100}
+                              //     className="w-full h-full object-cover"
+                              //   />
+                              //   {images.length > 4 && index === 3 && (
+                              //     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex flex-col items-center justify-center bg-black  bg-opacity-60 ">
+                              //       <p className="text-white text-[10px]">
+                              //         {images.length - 4}+
+                              //       </p>
+                              //       <p className="text-white text-[10px] ">
+                              //         view more
+                              //       </p>
+                              //     </div>
+                              //   )}
+                              // </div>
+                              <div key={index + 1} className="relative">
+                                <Dialog key={index + 1}>
+                                  <DialogTrigger>
+                                    <Image
+                                      src={img}
+                                      alt="Review"
+                                      width={100}
+                                      height={100}
+                                      className="w-[130px] object-cover"
+                                    />
+                                  </DialogTrigger>
+                                  <DialogContent>
+                                    <DialogHeader>
+                                      <DialogTitle></DialogTitle>
+                                      <DialogDescription></DialogDescription>
+                                    </DialogHeader>
+                                    <Image
+                                      src={img}
+                                      alt="Review"
+                                      width={470}
+                                      height={345}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </DialogContent>
+                                </Dialog>
                                 {images.length > 4 && index === 3 && (
                                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex flex-col items-center justify-center bg-black  bg-opacity-60 ">
                                     <p className="text-white text-[10px]">
