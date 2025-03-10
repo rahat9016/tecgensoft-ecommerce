@@ -163,33 +163,10 @@ const Reviews: React.FC<ReviewsProps> = ({ variant, productReviews }) => {
                       {images && images?.length > 0
                         ? images.slice(0, 4).map((img, index) => {
                             return (
-                              // <div
-                              //   key={img}
-                              //   className={`cursor-pointer border overflow-hidden border-light p-1  rounded-[4px] w-[75px] h-[75px] relative ${
-                              //     index === 4
-                              //       ? "before:absolute before:w-[75px] before:h-[75px] before:bg-[#0000004d] "
-                              //       : ""
-                              //   }`}
-                              // >
-                              //   <Image
-                              //     src={img}
-                              //     alt="Review"
-                              //     width={100}
-                              //     height={100}
-                              //     className="w-full h-full object-cover"
-                              //   />
-                              //   {images.length > 4 && index === 3 && (
-                              //     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex flex-col items-center justify-center bg-black  bg-opacity-60 ">
-                              //       <p className="text-white text-[10px]">
-                              //         {images.length - 4}+
-                              //       </p>
-                              //       <p className="text-white text-[10px] ">
-                              //         view more
-                              //       </p>
-                              //     </div>
-                              //   )}
-                              // </div>
-                              <div key={index + 1} className="relative">
+                              <div
+                                key={index + 1}
+                                className="relative w-[75px] h-[75px]"
+                              >
                                 <Dialog key={index + 1}>
                                   <DialogTrigger>
                                     <Image
@@ -207,7 +184,7 @@ const Reviews: React.FC<ReviewsProps> = ({ variant, productReviews }) => {
                                     </DialogHeader>
                                     <Image
                                       src={img}
-                                      alt="Review"
+                                      alt="Review modal"
                                       width={470}
                                       height={345}
                                       className="w-full h-full object-cover"

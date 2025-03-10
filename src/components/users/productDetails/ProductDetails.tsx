@@ -15,7 +15,7 @@ const ProductDetails = () => {
       <div className="my-4">Home / Custom / Work in process</div>
 
       {/*========= product short details part ======== */}
-      <div className="bg-[#fff] min-h-[700px] mb-10 p-3 flex flex-col items-center lg:items-start gap-3 lg:gap-5 lg:flex-row">
+      <div className="bg-[#fff] min-h-[700px] mb-10 px-3 lg:p-3 overflow-hidden flex flex-col items-center lg:items-start gap-3 lg:gap-5 lg:flex-row">
         {/*//? ====== product image =======*/}
         <div className="w-[350px]">
           <ProductImages productImages={images} />

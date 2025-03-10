@@ -181,7 +181,7 @@ const ProductSmallDescription = () => {
                 {/* ==== buy now button ====*/}
                 <Button
                   type="button"
-                  className={`bg-main-primary lg:bg-main-secondary lg:hover:bg-main-secondary-dark duration-200 px-[0px] w-[163px] h-[47px] py-4 leading-none text-sm lg:text-base font-medium lg:font-semibold text-white rounded-[30px] lg:rounded flex items-center justify-center active:scale-95  
+                  className={`bg-main-primary lg:bg-main-secondary lg:hover:bg-main-secondary-dark duration-200 px-[0px] w-[150px] h-[47px] py-4 leading-none text-sm lg:text-base font-medium lg:font-semibold text-white rounded-[30px] lg:rounded flex items-center justify-center active:scale-95  
                 disabled:opacity-50 disabled:cursor-not-allowed opacity-100
               `}
                   // onClick={() => handleClick(name, slug, img, id)}
@@ -207,7 +207,7 @@ const ProductSmallDescription = () => {
                     </Button> */}
                   <Button
                     type="button"
-                    className={`bg-main-secondary lg:bg-main-primary bg:hover:bg-main-secondary lg:hover:bg-main-primary-dark duration-200 w-[183px] h-[47px]  py-4 leading-none text-sm lg:text-base lg:font-semibold text-white rounded-[30px] lg:rounded flex items-center justify-center gap-[7px] shadow-lg relative active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed `}
+                    className={`bg-main-secondary lg:bg-main-primary bg:hover:bg-main-secondary lg:hover:bg-main-primary-dark duration-200 w-[160px] h-[47px]  py-4 leading-none text-sm lg:text-base lg:font-semibold text-white rounded-[30px] lg:rounded flex items-center justify-center gap-[7px] shadow-lg relative active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed `}
                   >
                     <FaCartPlus className="text-lg " />
                     Add to cart

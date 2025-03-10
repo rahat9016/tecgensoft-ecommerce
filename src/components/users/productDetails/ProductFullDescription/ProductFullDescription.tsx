@@ -14,7 +14,7 @@ const ProductFullDescription = ({
   productReviews: IReview[];
 }) => {
   return (
-    <div className="border border-red-600 min-h-[700px] mb-10 flex flex-col gap-3 max-w-[990px]">
+    <div className="min-h-[700px] mb-10 flex flex-col gap-3 max-w-[990px]">
       <Tabs defaultValue="Description" className="bg-red- flex flex-col gap-3">
         {/*//? ======= tabs ====== */}
         <TabsList className="gap-3">
