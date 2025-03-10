@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import ProductImages from "./ProductImages";
-import { demoProductData, images } from "./DemoData";
+import { demoProductData, demoReviewData, images } from "./DemoData";
 
 import ProductSpecifics from "./ProductSpecifics";
 import ProductFullDescription from "./ProductFullDescription/ProductFullDescription";
@@ -25,7 +25,11 @@ const ProductDetails = () => {
       </div>
 
       {/* //? ======= product full description ========= */}
-      <ProductFullDescription variant={variant} baseProduct={base_product} />
+      <ProductFullDescription
+        variant={variant}
+        baseProduct={base_product}
+        productReviews={demoReviewData}
+      />
     </div>
   );
 };

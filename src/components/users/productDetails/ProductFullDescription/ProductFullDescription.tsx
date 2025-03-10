@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { IBaseProduct, IVariant } from "../types";
+import { IBaseProduct, IReview, IVariant } from "../types";
 import Description from "./Description";
 import Reviews from "./Reviews";
-import FaqPage from "./FaqPage";
 
 const ProductFullDescription = ({
   variant,
   baseProduct,
+  productReviews,
 }: {
   variant: IVariant | undefined;
   baseProduct: IBaseProduct | undefined;
+  productReviews: IReview[];
 }) => {
   return (
     <div className="border border-red-600 min-h-[700px] mb-10 flex flex-col gap-3 max-w-[990px]">
@@ -29,12 +30,12 @@ const ProductFullDescription = ({
           >
             Reviews
           </TabsTrigger>
-          <TabsTrigger
+          {/* <TabsTrigger
             value="faqs"
             className="data-[state=active]:bg-[#157892] data-[state=active]:text-white text-sm font-semibold px-5 py-2 bg-white text-[#157892]"
           >
             FAQS
-          </TabsTrigger>
+          </TabsTrigger> */}
         </TabsList>
 
         {/* //? ========= tabs contents ======== */}
@@ -42,11 +43,11 @@ const ProductFullDescription = ({
           <Description variant={variant} baseProduct={baseProduct} />
         </TabsContent>
         <TabsContent value="reviews">
-          <Reviews />
+          <Reviews variant={variant} productReviews={productReviews} />
         </TabsContent>
-        <TabsContent value="faqs">
+        {/* <TabsContent value="faqs">
           <FaqPage />
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
     </div>
   );
