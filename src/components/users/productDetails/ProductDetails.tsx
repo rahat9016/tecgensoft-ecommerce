@@ -10,7 +10,7 @@ const ProductDetails = () => {
   const { variant, base_product } = demoProductData;
 
   return (
-    <div className="container mx-auto flex flex-col">
+    <div className="container mx-auto flex flex-col max-w-[1327px]">
       {/* breadecum */}
       <div className="my-4">Home / Custom / Work in process</div>
 
