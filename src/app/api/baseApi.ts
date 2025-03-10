@@ -3,7 +3,7 @@ import axios, { InternalAxiosRequestConfig } from "axios";
 import { getCookie, isCookieExpired, setCookie } from "@/lib/cookie";
 import { ICustomAxiosRequestConfig } from "./interface";
 // const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const BASE_URL = "http://tecgensoft.com";
+const BASE_URL = "https://tecgensoft.com";
 
 const api = axios.create({
   baseURL: BASE_URL,
