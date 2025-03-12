@@ -39,11 +39,12 @@ export default function Signing() {
           },
         });
         dispatch(setUserInformation(res))
-        if(res && res.role[0].toLocaleLowerCase() === "admin"){
+        if(res && res?.role[0]?.toLocaleLowerCase() === "admin"){
           router.push('/admin')
         }else{
           router.push('/')
         }
+        console.log('tst')
       }
     });
   };
