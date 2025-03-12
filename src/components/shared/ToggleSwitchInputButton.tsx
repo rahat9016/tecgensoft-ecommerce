@@ -1,49 +1,54 @@
-"use client";
-import React, { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { Input } from "@/components/ui/input";
+import { Input } from "../ui/input";
 
+const ToggleSwitchInputButton = ({ name, labelTitle }: { name: string; labelTitle?: string }) => {
+  const { control, setValue } = useFormContext();
 
-const ToggleSwitchInputButton = ({ name }: { name: string }) => {
-  const [toggleSwitch, setToggleSwitch] = useState(false);
-  const { control } = useFormContext();
+  const handleToggle = (value: boolean) => {
+    setValue(name, value);
+  };
 
   return (
-    <div className="flex my-6 justify-between items-center h-11 w-full rounded-md border bg-white px-3 py-1 text-base shadow-sm">
-      <label className="flex items-center text-arsenic text-sm font-medium font-poppins">
-        Category Active
+    <div>
+      <label className="flex items-center text-arsenic text-sm font-medium font-poppins mb-1">
+        {labelTitle}
       </label>
-      <div
-        onClick={() => setToggleSwitch(!toggleSwitch)}
-        className={`relative cursor-pointer w-16 rounded-full h-8 transform-color duration-300 ${
-          toggleSwitch ? "bg-[#00d54f]" : "bg-[#eeeeee]"
-        } `}
-      >
-        <div
-          onClick={() => setToggleSwitch(!toggleSwitch)}
-          className={`absolute top-1 left-1 w-6 h-6 rounded-full bg-white transform duration-300 transition-all ${
-            toggleSwitch && "translate-x-8"
-          } `}
-        />
-      </div>
-      <div className="hidden">
-        <Controller
-          name={name}
-          control={control}
-          render={({ field, fieldState: { error } }) => {
-            return (
-              <Input
-                {...field}
-                value={toggleSwitch ? "1" : "0"}
-                error={error?.message}
-                showErrorMessage={!!error}
-              />
-            );
-          }}
-        />
-      </div>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { value, onChange }, fieldState: { error } }) => {
+          const toggleSwitch = value === true;
+          return (
+            <>
+              <div
+                onClick={() => {
+                  const newValue = !toggleSwitch;
+                  onChange(newValue); 
+                  handleToggle(newValue); 
+                }}
+                className={`relative cursor-pointer w-[52px] rounded-full h-8 transform-color duration-300 shadow-sm border border-[#52525263] ${
+                  toggleSwitch ? "bg-main-primary" : "bg-[#eeeeee]"
+                }`}
+              >
+                <div
+                  className={`absolute top-[3px] left-1 w-6 h-6 rounded-full bg-white transform duration-300 transition-all ${
+                    toggleSwitch && "translate-x-[17px]"
+                  }`}
+                />
+              </div>
+              <div className="hidden">
+                <Input
+                  value={String(toggleSwitch)} 
+                  error={error?.message}
+                  showErrorMessage={!!error}
+                  readOnly 
+                />
+              </div>
+            </>
+          );
+        }}
+      />
     </div>
   );
 };
-
-export default ToggleSwitchInputButton;
+export default ToggleSwitchInputButton
