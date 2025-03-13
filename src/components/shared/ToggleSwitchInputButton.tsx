@@ -1,15 +1,16 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "../ui/input";
 
-const ToggleSwitchInputButton = ({ name, labelTitle }: { name: string; labelTitle?: string }) => {
-  const { control, setValue } = useFormContext();
-
-  const handleToggle = (value: boolean) => {
-    setValue(name, value);
-  };
-
+const ToggleSwitchInputButton = ({
+  name,
+  labelTitle,
+}: {
+  name: string;
+  labelTitle?: string;
+}) => {
+  const { control } = useFormContext();
   return (
-    <div>
+    <div className="flex justify-between items-center border shadow-sm p-3 rounded-full w-full">
       <label className="flex items-center text-arsenic text-sm font-medium font-poppins mb-1">
         {labelTitle}
       </label>
@@ -23,8 +24,8 @@ const ToggleSwitchInputButton = ({ name, labelTitle }: { name: string; labelTitl
               <div
                 onClick={() => {
                   const newValue = !toggleSwitch;
-                  onChange(newValue); 
-                  handleToggle(newValue); 
+                  onChange(newValue);
+                  // handleToggle(newValue); 
                 }}
                 className={`relative cursor-pointer w-[52px] rounded-full h-8 transform-color duration-300 shadow-sm border border-[#52525263] ${
                   toggleSwitch ? "bg-main-primary" : "bg-[#eeeeee]"
@@ -38,10 +39,10 @@ const ToggleSwitchInputButton = ({ name, labelTitle }: { name: string; labelTitl
               </div>
               <div className="hidden">
                 <Input
-                  value={String(toggleSwitch)} 
+                  value={String(toggleSwitch)}
                   error={error?.message}
                   showErrorMessage={!!error}
-                  readOnly 
+                  readOnly
                 />
               </div>
             </>
@@ -51,4 +52,4 @@ const ToggleSwitchInputButton = ({ name, labelTitle }: { name: string; labelTitl
     </div>
   );
 };
-export default ToggleSwitchInputButton
+export default ToggleSwitchInputButton;

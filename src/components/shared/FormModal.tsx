@@ -18,7 +18,7 @@ export function FormModal<T>({
   isOpen,
   onClose,
   onSubmit,
-  children
+  children,
 }: IFormModalProps<T>) {
   const handleSubmit = async (data: T) => {
     await onSubmit(data);
@@ -35,13 +35,13 @@ export function FormModal<T>({
           }
         >
           {children}
-          <DialogFooter className="mt-3">
+          <DialogFooter className="mt-3 flex  flex-col-reverse gap-3">
             <Button
               onClick={onClose}
               type="button"
               className="bg-main-secondary hover:bg-main-secondary-dark font-poppins "
             >
-              Close
+              Cancel
             </Button>
             <Button
               type="submit"

@@ -174,7 +174,7 @@ export function DataTable<T>({
                   Loading...
                 </TableCell>
               </TableRow>
-            ) : table.getRowModel().rows?.length ? (
+            ) : table.getRowModel().rows?.length? (
               table.getRowModel().rows.map((row, index) => (
                 <TableRow
                   key={row.id}

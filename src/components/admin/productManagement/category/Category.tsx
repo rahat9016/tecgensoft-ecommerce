@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import useOpen from "@/hooks/useOpen";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -17,14 +16,11 @@ import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import ControlledInputField from "@/components/shared/ControlledInputField";
-<<<<<<<<< Temporary merge branch 1
-import SearchNSelect from "@/components/shared/SearchNSelect";
 import ToggleSwitchInputButton from "@/components/shared/ToggleSwitchInputButton";
-=========
-import InputLabel from "@/components/shared/InputLabel";
 import { useQuery } from "@tanstack/react-query";
-import { getCategory } from "@/app/api/category";
->>>>>>>>> Temporary merge branch 2
+import { CallCreateUpdateApi, getCategory } from "@/app/api/category";
+import ControlledImageField from "@/components/shared/ControlledImageField";
+import { showToast } from "@/components/shared/showToast";
 
 // const data = [
 //   {
@@ -70,57 +66,90 @@ const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"));
 
-        // Format the amount as a dollar amount
-        const formatted = new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(amount);
+      // Format the amount as a dollar amount
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(amount);
 
-        return <div className="text-right">{formatted}</div>;
-      },
+      return <div className="text-right">{formatted}</div>;
     },
-    {
-      id: "actions",
-      enableHiding: false,
-      cell: ({ row }) => {
-        const payment = row.original;
+  },
+  {
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      const payment = row.original;
 
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(payment.id)}
-              >
-                Copy payment ID
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>View customer</DropdownMenuItem>
-              <DropdownMenuItem>View payment details</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        );
-      },
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(payment.id)}
+            >
+              Copy payment ID
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>View customer</DropdownMenuItem>
+            <DropdownMenuItem>View payment details</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
     },
-  ];
+  },
+];
+
+const Category = () => {
+  const [open, setOpen] = useState(false);
+  const { page, pageSize, pageCount, setPage, setPageSize, setSearch } =
+    usePagination();
 
   const methods = useForm({
     mode: "onChange",
     defaultValues: {
-      is_active:false,
-      category: ""
+      category: "",
+      show_in_ecommerce: false,
+      is_active: false,
     },
+  });
+  const { reset } = methods;
+  const { data: category, refetch } = useQuery({
+    queryKey: ["category"],
+    queryFn: () => getCategory(),
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = (data: any) => {
-    console.log(JSON.stringify(data));
+  const onSubmit = async (data: any) => {
+    console.log("Submitting data:", JSON.stringify(data));
+    try {
+      const result = await CallCreateUpdateApi({
+        url: "/catalog/category/",
+        method: "post",
+        data,
+        reset,
+        refetch,
+        setOpen,
+      });
+
+      if (result.error) {
+        console.error("Error:", result.error.message);
+        showToast("Failed to create category. Please try again.", "error");
+      } else {
+        console.log("Success:", result.message);
+        showToast("Category created successfully!", "success");
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+      showToast("An unexpected error occurred. Please try again.", "error");
+    }
+
     // setOpen(false);
   };
   return (
@@ -139,13 +168,30 @@ const columns: ColumnDef<any>[] = [
               type="text"
               placeholder="Category Name"
             />
-            <ToggleSwitchInputButton name="is_active" />
-            <ControlledImageField name="image" isMultiple/>
+            <div className="flex flex-col md:flex-row justify-between gap-5 w-full">
+              <div className="w-full flex flex-col gap-5 justify-between">
+                <ToggleSwitchInputButton
+                  name="show_in_ecommerce"
+                  labelTitle="Show in Ecommerce"
+                />
+                <ToggleSwitchInputButton
+                  name="is_active"
+                  labelTitle="Status(Active/Inactive)"
+                />
+              </div>
+              <div className="flex justify-end w-full">
+                <ControlledImageField
+                  name="icon"
+                  label="Upload Category Icon"
+                  isMultiple
+                />
+              </div>
+            </div>
           </div>
         </FormModal>
       </FormProvider>
       <DataTable
-        data={[]}
+        data={category || []}
         columns={columns}
         isLoading={false}
         page={page}
@@ -158,4 +204,6 @@ const columns: ColumnDef<any>[] = [
       />
     </div>
   );
-}
+};
+
+export default Category;

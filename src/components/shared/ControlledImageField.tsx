@@ -110,13 +110,7 @@ const ControlledImageField: React.FC<ControlledImageFieldProps> = ({
   };
 
   return (
-    <div>
-      {label && (
-        <p className="text-arsenic text-sm mb-1 font-medium font-poppins">
-          {label}
-          {required && <span className="text-red-600">*</span>}
-        </p>
-      )}
+    <div className="flex flex-col gap-2 border w-full py-5 md:py-0 rounded-lg shadow-sm items-center justify-center">
       <Controller
         name={name}
         control={control}
@@ -124,30 +118,39 @@ const ControlledImageField: React.FC<ControlledImageFieldProps> = ({
           console.log({ error });
           return (
             <>
-            <div className="flex items-center space-x-2">
-              <label className="w-16 h-16 flex flex-col items-center justify-center bg-[#32976a4b] text-main-primary-dark rounded-lg cursor-pointer p-2 border border-main-primary">
-                <input
-                  type="file"
-                  accept="image/*"
-                  hidden
-                  multiple={isMultiple}
-                  onChange={(e) => {
-                    field.onChange(e);
-                    handleFileChange(e);
-                  }}
-                />
-                <Image />
-                <span className="text-[10px] leading-none text-center mt-1 font-poppins font-semibold">
-                  Upload Image
-                </span>
-              </label>
-            </div>
-            {error && (
-                <div className="text-rose-500 text-xs mt-1 pl-2">{error.message}</div>
-              )}</>
+              <div className="flex items-center space-x-2">
+                <label className="w-16 h-16 flex flex-col items-center justify-center bg-[#32976a4b] text-main-primary-dark rounded-lg cursor-pointer p-2 border border-main-primary">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    multiple={isMultiple}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleFileChange(e);
+                    }}
+                  />
+                  <Image />
+                  <span className="text-[10px] leading-none text-center mt-1 font-poppins font-semibold">
+                    Upload Image
+                  </span>
+                </label>
+              </div>
+              {error && (
+                <div className="text-rose-500 text-xs mt-1 pl-2">
+                  {error.message}
+                </div>
+              )}
+            </>
           );
         }}
       />
+      {label && (
+        <p className="text-arsenic text-sm font-medium font-poppins">
+          {label}
+          {required && <span className="text-red-600">*</span>}
+        </p>
+      )}
     </div>
   );
 };
