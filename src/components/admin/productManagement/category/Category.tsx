@@ -17,8 +17,7 @@ import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import ControlledInputField from "@/components/shared/ControlledInputField";
-import SearchNSelect from "@/components/shared/SearchNSelect";
-import ToggleSwitchInputButton from "@/components/shared/ToggleSwitchInputButton";
+import InputLabel from "@/components/shared/InputLabel";
 
 const data = [
   {
@@ -105,9 +104,15 @@ const columns: ColumnDef<any>[] = [
 ];
 
 export default function Category() {
+  const { open, setOpen } = useOpen();
   const { page, setPage, pageSize, setPageSize, pageCount, setSearch } =
     usePagination();
-  const { open, setOpen } = useOpen();
+  const { data } = useQuery({
+      queryKey: ['category'],
+      queryFn: () =>
+        getCategory()
+    })
+  console.log(data)
   const methods = useForm({
     mode: "onChange",
     defaultValues: {},
@@ -140,7 +145,7 @@ export default function Category() {
         </FormModal>
       </FormProvider>
       <DataTable
-        data={data}
+        data={[]}
         columns={columns}
         isLoading={false}
         page={page}

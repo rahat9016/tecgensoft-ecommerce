@@ -6,19 +6,19 @@ import { IApiError } from "./interface";
 interface IAuthResponse {
   username: string;
   email: string;
+  role: string[];
   token: {
     access: string;
     refresh: string;
   };
+  message: string;
 }
-export const signing = async () => {
+export const signing = async (data: { username: string; password: string }) => {
   try {
+    console.log(data);
     const response: AxiosResponse<IAuthResponse> = await api.post(
       "/user/signin/",
-      {
-        username: "minhazur9016",
-        password: "1",
-      }
+      JSON.stringify(data)
     );
     if (response.status === 201) {
       // Set login information in cookie.
@@ -26,13 +26,14 @@ export const signing = async () => {
         token: { access, refresh },
         username,
         email,
+        role,
       } = response.data;
-      // console.log(jwtDecode(access))
       setCookie("access", access, 20);
       setCookie("refresh", refresh, 20);
       const userInfo = {
         email: email,
         username: username,
+        role: role,
       };
       setCookie("userInformation", JSON.stringify(userInfo), 20);
       return response?.data;
@@ -46,5 +47,34 @@ export const signing = async () => {
       throw apiError;
     }
     throw { message: "Unknown error occurred" } as IApiError;
+  }
+};
+export const register = async (data: {
+  email: string;
+  username: string;
+  password: string;
+}) => {
+  try {
+    const response: AxiosResponse<IAuthResponse> = await api.post(
+      "/user/signup/",
+      JSON.stringify(data)
+    );
+    if (response.status === 201) {
+      return response?.data;
+    }
+    if (response.status === 200 && response.data?.message) {
+      throw { message: response.data.message } as IApiError;
+    }
+    throw new Error("Unexpected response status");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    if (error instanceof AxiosError) {
+      console.log(error.message);
+      const apiError: IApiError = error.response?.data ?? {
+        message: "Something went wrong",
+      };
+      throw apiError;
+    }
+    throw { message: error.message || "Unknown error occurred" } as IApiError;
   }
 };
