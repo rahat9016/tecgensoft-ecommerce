@@ -103,10 +103,10 @@ export interface IVariant {
   id: number;
   name: string | any;
   updated_selling_price?: number;
-  deal_of_the_week: {
-    discount_type: string;
-    discount_value: number;
-    discount_amount: number;
+  deal_of_the_week?: {
+    discount_type?: string;
+    discount_value?: number;
+    discount_amount?: number;
   };
   slug: string;
   stock_available: IStockAvailable[];
@@ -122,9 +122,9 @@ export interface IVariant {
     description: string;
     short_description: string;
   };
-  online_discount: {
-    discount_value: number;
-    discount_type: string;
+  online_discount?: {
+    discount_value?: number;
+    discount_type?: string;
   };
   service_warranty: number;
   service_warranty_duration_type: string;
@@ -139,10 +139,10 @@ export interface IVariant {
   rating_five: number;
   tax_value: number;
   average_rating: number;
-  campaign_member: {
-    campaign: {
-      start_date: string;
-      end_date: string;
+  campaign_member?: {
+    campaign?: {
+      start_date?: string;
+      end_date?: string;
     };
     discount_type: string;
     discount_value: number;
@@ -189,13 +189,17 @@ interface IMeta {
   short_description: string;
 }
 
-interface IOnlineDiscount {}
+interface IOnlineDiscount {
+  online_discount_method?: string;
+  online_discount_amount?: string;
+}
 
 interface IOfflineDiscount {}
 
 export interface IProduct {
   id: number;
   images: string[];
+  average_rating?: number;
   tax_value: number;
   updated_selling_price?: number;
   stock_available: number | null;
@@ -355,7 +359,7 @@ export interface IProductSpecifics {
   groupAttribute: any[] | null;
   handleAttributeSelect: (item: any) => void;
   selectedAttributes: any;
-  paymentData: { percentage_amount: number };
+  paymentData: {percentage_amount: number};
   handleLinkClick: (value: string) => void;
   selectedField: any;
   handleClick: any;

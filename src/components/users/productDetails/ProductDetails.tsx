@@ -1,13 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import ProductImages from "./ProductImages";
-import { demoProductData, demoReviewData, images } from "./DemoData";
+import {
+  demoProductData,
+  demoReviewData,
+  images,
+  RelatedProductsData,
+} from "./DemoData";
 
 import ProductSpecifics from "./ProductSpecifics";
 import ProductFullDescription from "./ProductFullDescription/ProductFullDescription";
+import RelatedProducts from "./components/RelatedProducts/RelatedProducts";
 
 const ProductDetails = () => {
-  const { variant, base_product } = demoProductData;
+  const {variant, base_product} = demoProductData;
+  const categoryProducts = RelatedProductsData || [];
 
   return (
     <div className="container mx-auto flex flex-col max-w-[1327px]">
@@ -25,11 +32,17 @@ const ProductDetails = () => {
       </div>
 
       {/* //? ======= product full description ========= */}
-      <ProductFullDescription
-        variant={variant}
-        baseProduct={base_product}
-        productReviews={demoReviewData}
-      />
+      <div className="flex flex-col-reverse lg:flex-row  lg:gap-[16px] ">
+        <ProductFullDescription
+          variant={variant}
+          baseProduct={base_product}
+          productReviews={demoReviewData}
+        />
+        {/*=== related products =======*/}
+        <div className="w-full lg:w-[415px] mt-4 px-4 lg:px-0">
+          <RelatedProducts categoryProducts={categoryProducts} />
+        </div>
+      </div>
     </div>
   );
 };

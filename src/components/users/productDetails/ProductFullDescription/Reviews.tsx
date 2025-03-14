@@ -59,7 +59,7 @@ const Reviews: React.FC<ReviewsProps> = ({ variant, productReviews }) => {
   };
 
   return (
-    <div className="px-5 py-6 bg-white">
+    <div className="px-5 py-6 bg-white w-full">
       {/* Review's header */}
       <CustomerDRFHeader header={`Customer Reviews (${totalRatingCount})`} />
       {/* count star */}
