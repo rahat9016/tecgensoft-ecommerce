@@ -30,7 +30,7 @@ const PopularProducts: React.FC<PopularProductsProps> = ({ data }) => {
           {data.map((product: Product) => (
             <ProductCard
               key={product?.id}
-              href={`/product-details/${product?.id}`}
+              href={`/products/${product?.id}`}
               productImage={product?.productImage}
               productName={product?.productName}
               price={product?.price}

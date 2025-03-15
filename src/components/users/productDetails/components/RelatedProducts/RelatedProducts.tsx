@@ -44,7 +44,7 @@ const RelatedProducts = ({
               productName={product?.name}
               price={product?.selling_price}
               star={product?.rating}
-              href={`/product-details/product_variant=${product?.slug}`}
+              href={`/products/product_variant=${product?.slug}`}
             />
           </div>
         ))}

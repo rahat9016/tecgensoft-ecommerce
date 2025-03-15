@@ -11,15 +11,18 @@ import {
 import ProductSpecifics from "./ProductSpecifics";
 import ProductFullDescription from "./ProductFullDescription/ProductFullDescription";
 import RelatedProducts from "./components/RelatedProducts/RelatedProducts";
+import CustomBreadCrumb from "@/utility/BreadCrumb";
 
 const ProductDetails = () => {
-  const {variant, base_product} = demoProductData;
+  const { variant, base_product } = demoProductData;
   const categoryProducts = RelatedProductsData || [];
 
   return (
     <div className="container mx-auto flex flex-col max-w-[1327px]">
       {/* breadecum */}
-      <div className="my-4">Home / Custom / Work in process</div>
+      <div className="my-4">
+        <CustomBreadCrumb />
+      </div>
 
       {/*========= product short details part ======== */}
       <div className="bg-[#fff] min-h-[700px] mb-10 px-3 lg:p-3 overflow-hidden flex flex-col items-center lg:items-start gap-3 lg:gap-5 lg:flex-row">

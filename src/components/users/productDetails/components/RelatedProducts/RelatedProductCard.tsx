@@ -25,7 +25,7 @@ const RelatedProductCard = ({ product }: { product: IProduct }) => {
 
   const navigateToProductDetails = (slug: string | undefined) => {
     if (slug) {
-      router.push(`/product-details/product_variant=${slug}`);
+      router.push(`/products/product_variant=${slug}`);
     }
   };
   const keyDownNavigateToDetails = (

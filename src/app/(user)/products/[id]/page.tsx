@@ -1,8 +1,9 @@
+import Loader from "@/utility/Loader";
 import dynamic from "next/dynamic";
 
 const ProductDetails = dynamic(
   () => import("@/components/users/productDetails/ProductDetails"),
-  {loading: () => <p>Loading ....</p>}
+  { loading: () => <Loader /> }
 );
 
 const ProductDetailsPage = () => {
