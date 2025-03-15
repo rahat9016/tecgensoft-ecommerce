@@ -10,8 +10,8 @@ export interface ICategory {
   id: number;
   name: string;
   slug: string;
-  translation: {
-    bn_name: string;
+  translation?: {
+    bn_name?: string;
   };
 }
 
@@ -24,8 +24,8 @@ export interface IBaseProduct {
     name: string;
     slug: string;
     logo: string;
-    translation: {
-      bn: string;
+    translation?: {
+      bn?: string;
     };
   };
   name: string;
@@ -146,19 +146,19 @@ export interface IVariant {
     };
     discount_type: string;
     discount_value: number;
-  };
+  } | null;
   is_upcoming: boolean;
-  translation: {
-    bn_name: string;
-    bn_description: string;
-    bn_short_description: string;
+  translation?: {
+    bn_name?: string;
+    bn_description?: string;
+    bn_short_description?: string;
   };
   group: {
     id: number;
     name: string;
     slug: string;
-    translation: {
-      bn: string;
+    translation?: {
+      bn?: string;
     };
   };
   store: {
@@ -179,9 +179,9 @@ export interface IProductDetails {
 }
 // Product Interface
 interface ITranslation {
-  bn_name: string;
-  bn_description: string;
-  bn_short_description: string;
+  bn_name?: string;
+  bn_description?: string;
+  bn_short_description?: string;
 }
 
 interface IMeta {
@@ -198,17 +198,17 @@ interface IOfflineDiscount {}
 
 export interface IProduct {
   id: number;
-  images: string[];
+  images: string | string[];
   average_rating?: number;
   tax_value: number;
   updated_selling_price?: number;
   stock_available: number | null;
   name: string;
-  translation: ITranslation;
+  translation?: ITranslation;
   slug: string;
   sku: string;
   selling_price: number;
-  specifications: []; // You can replace 'any' with a more specific type
+  specifications: any;
   meta: IMeta;
   online_discount: IOnlineDiscount;
   offline_discount: IOfflineDiscount;
@@ -239,9 +239,9 @@ export interface IShipmentCategoryList {
   title: string;
   description: string;
   charge: number | null;
-  translation: {
-    title_bn: string;
-    description_bn: string;
+  translation?: {
+    title_bn?: string;
+    description_bn?: string;
   };
   country: IAvailableCountry;
 }
@@ -253,14 +253,14 @@ interface IAvailableCountry {
   flag: string;
 }
 export interface ICountryWiseChanges {
-  countryWiseCharge?: ICountry | undefined;
-  availableCountriesState?: IAvailableCountry | undefined;
-  shipmentListState?: IShipmentCategoryList[] | undefined;
+  countryWiseCharge: ICountry | undefined;
+  availableCountriesState: IAvailableCountry | undefined;
+  shipmentListState: IShipmentCategoryList[] | undefined;
   qtyWisePrice?: IQuantityWisePrice | null;
   quantityWisePrice: IQuantityWisePrice[] | [];
   updatedPrice: number;
   sellingPrice: number;
-  stock?: number | undefined;
+  stock: number | undefined;
   availableCountryWiseStock?: {
     product_variant_id: number | null;
     country_id: number | null;
@@ -309,7 +309,7 @@ export interface IAttributeSelectItem {
 
 interface IUser {
   first_name: string;
-  last_name: string;
+  last_name: string | null;
   username: string;
   email: string;
   contact_number: string;
@@ -325,13 +325,13 @@ interface IProductVariant {
   service_warranty: number;
   sell_warranty: number;
   selling_price: number;
-  translation: Record<string, unknown>;
+  translation?: Record<string, unknown>;
 }
 
 export interface IReview {
   id: number;
   created_by: IUser;
-  updated_by: IUser;
+  updated_by: null | IUser;
   product_variant: IProductVariant;
   created_at: string;
   updated_at: string;
@@ -339,7 +339,7 @@ export interface IReview {
   rating: number;
   is_accepted: boolean;
   order: number;
-  images: [];
+  images: string[];
 }
 
 export interface IProductSpecifics {
@@ -359,7 +359,7 @@ export interface IProductSpecifics {
   groupAttribute: any[] | null;
   handleAttributeSelect: (item: any) => void;
   selectedAttributes: any;
-  paymentData: {percentage_amount: number};
+  paymentData: { percentage_amount: number };
   handleLinkClick: (value: string) => void;
   selectedField: any;
   handleClick: any;
