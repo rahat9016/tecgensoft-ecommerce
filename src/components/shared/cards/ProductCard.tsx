@@ -1,10 +1,11 @@
+"use client";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 type ProductCardProps = {
-  productImage: string;
+  productImage: string | string[];
   productName: string;
   price: number;
   discountPrice?: number;
@@ -28,6 +29,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isBestDealShow = false,
   href = "#",
 }) => {
+  const imageSrc = Array.isArray(productImage) ? productImage[0] : productImage;
+
   return (
     <Link
       href={href}
@@ -51,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {/* image */}
       <div className="w-full max-h-[152px] lg:max-h-[218px] h-full">
         <Image
-          src={productImage}
+          src={imageSrc}
           width={250}
           height={218}
           alt="product image"

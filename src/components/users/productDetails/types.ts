@@ -198,7 +198,7 @@ interface IOfflineDiscount {}
 
 export interface IProduct {
   id: number;
-  images: string | string[];
+  images: string ;
   average_rating?: number;
   tax_value: number;
   updated_selling_price?: number;

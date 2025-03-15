@@ -1,13 +1,13 @@
 "use client";
-import {useRouter} from "next/navigation";
-import {FaArrowRight, FaStar} from "react-icons/fa";
-import {IProduct} from "../../types";
+import { useRouter } from "next/navigation";
+import { FaArrowRight, FaStar } from "react-icons/fa";
+import { IProduct } from "../../types";
 import Image from "next/image";
 // import {useNavigate} from "react-router-dom";
 // import Image from "../../../components/shared/Image";
 // import {IProduct} from "../../../types/types";
 
-const RelatedProductCard = ({product}: {product: IProduct}) => {
+const RelatedProductCard = ({ product }: { product: IProduct }) => {
   const router = useRouter();
 
   if (!product) return null;
@@ -20,13 +20,16 @@ const RelatedProductCard = ({product}: {product: IProduct}) => {
     online_discount: onlineDiscount,
     average_rating: averageRating,
   } = product;
+
+  const imageSrc = Array.isArray(images) ? images[0] : images;
+
   const navigateToProductDetails = (slug: string | undefined) => {
     if (slug) {
       router.push(`/product-details/product_variant=${slug}`);
     }
   };
   const keyDownNavigateToDetails = (
-    event: {key: string | undefined},
+    event: { key: string | undefined },
     slug: string
   ) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -38,7 +41,8 @@ const RelatedProductCard = ({product}: {product: IProduct}) => {
       className="drop-shadow-sm bg-white lg:py-[10px] lg:pl-[11px] lg:pr-[13px] flex flex-col lg:flex-row items-center h-[210px] lg:h-[110px] rounded-5px relative lg:gap-[10px] hover:shadow-lg duration-300 pb-2"
       onClick={() => navigateToProductDetails(slug)}
       onKeyDown={(event) => keyDownNavigateToDetails(event, slug)}
-      tabIndex={0}>
+      tabIndex={0}
+    >
       {onlineDiscount?.online_discount_method?.toString() === `percentage` ? (
         <div className="shape flex justify-center items-center p-2 w-[40px] h-[53px] absolute right-[13px] top-0">
           <span className="text-base text-white font-bold hover:scale-105 duration-200">
@@ -49,7 +53,7 @@ const RelatedProductCard = ({product}: {product: IProduct}) => {
       ) : null}
       <div className="overflow-hidde">
         <Image
-          src={images && images.length > 0 ? images[0] : ""}
+          src={imageSrc || "/images/product/no-image.jpg"}
           alt="SHOP"
           width={100}
           height={80}

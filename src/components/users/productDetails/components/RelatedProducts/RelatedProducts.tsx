@@ -1,7 +1,7 @@
 // import {useRouter} from "next/router";
 
 import RelatedProductCard from "./RelatedProductCard";
-import {IProduct} from "../../types";
+import { IProduct } from "../../types";
 import ProductCard from "@/components/shared/cards/ProductCard";
 
 const RelatedProducts = ({
@@ -40,11 +40,7 @@ const RelatedProducts = ({
         {relatedProducts.map((product: IProduct) => (
           <div key={product.id} className="w-[150px] bg-white">
             <ProductCard
-              productImage={
-                product?.images && product?.images.length > 0
-                  ? product?.images[0]
-                  : ""
-              }
+              productImage={product.images}
               productName={product?.name}
               price={product?.selling_price}
               star={product?.rating}
