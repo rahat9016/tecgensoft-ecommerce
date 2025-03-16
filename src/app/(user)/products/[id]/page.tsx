@@ -1,4 +1,4 @@
-import Loader from "@/utility/Loader";
+import Loader from "@/utility/Loader/Loader";
 import dynamic from "next/dynamic";
 
 const ProductDetails = dynamic(

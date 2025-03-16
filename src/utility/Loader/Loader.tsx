@@ -1,7 +1,7 @@
 "use client";
 import { Skeleton } from "@/components/ui/skeleton";
 import dynamic from "next/dynamic";
-import loadingAnimatedIcon from "../../public/icons/loading_Icon.json";
+import loadingAnimatedIcon from "../../../public/icons/loading_Icon.json";
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 const Loader = () => {
