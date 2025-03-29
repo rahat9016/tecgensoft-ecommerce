@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function groupByAttributeName(attributes: any | undefined) {
   if (!attributes) return null;
   const groupedData = attributes?.reduce(

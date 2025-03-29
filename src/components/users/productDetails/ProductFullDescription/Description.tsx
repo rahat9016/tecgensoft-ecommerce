@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { groupBySpecification } from "@/utility/product";
 import React from "react";
 import { IBaseProduct, IVariant } from "../types";
@@ -41,7 +40,6 @@ const Description = ({
           </div>
           <div
             className="font-normal text-sm mt-4 lg:mt-10 mb-12 leading-[22px]"
-            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: meta && meta?.description }}
           />
           {groupSpecification && (

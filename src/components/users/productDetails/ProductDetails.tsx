@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from "react";
 import ProductImages from "./ProductImages";
 import {
@@ -11,7 +11,7 @@ import {
 import ProductSpecifics from "./ProductSpecifics";
 import ProductFullDescription from "./ProductFullDescription/ProductFullDescription";
 import RelatedProducts from "./components/RelatedProducts/RelatedProducts";
-import CustomBreadCrumb from "@/utility/BreadCrumb";
+
 
 const ProductDetails = () => {
   const { variant, base_product } = demoProductData;
@@ -21,7 +21,7 @@ const ProductDetails = () => {
     <div className="container mx-auto flex flex-col max-w-[1327px]">
       {/* breadecum */}
       <div className="my-4">
-        <CustomBreadCrumb />
+        {/* <CustomBreadCrumb /> */}
       </div>
 
       {/*========= product short details part ======== */}
