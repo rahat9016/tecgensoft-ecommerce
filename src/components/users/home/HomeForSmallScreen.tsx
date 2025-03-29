@@ -1,8 +1,8 @@
-import SectionHeader from "@/components/shared/SectionHeader";
 import SliderBanner from "./components/SliderBanner";
 import SliderBannerOne from "./components/SliderBannerOne";
 import DealsOfWeek from "./DealsOfWeek";
 import { products } from "./DemoData";
+import FeaturedCategorySmall from "./FeaturedCategorySmall";
 import FeaturedProducts from "./FeaturedProducts";
 
 const HomeForSmallScreen = () => {
@@ -19,10 +19,7 @@ const HomeForSmallScreen = () => {
       <DealsOfWeek />
 
       {/* featured category */}
-      <div className="flex flex-col gap-2">
-        <SectionHeader title="Featured Category" showLink={false} />
-        <div className="min-h-[200px] bg-amber-300"></div>
-      </div>
+      <FeaturedCategorySmall />
 
       {/* featured products */}
       <FeaturedProducts isLoadMore={false} data={products} />

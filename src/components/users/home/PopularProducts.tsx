@@ -19,7 +19,7 @@ type PopularProductsProps = {
   data: Product[];
 };
 
-const PopularProducts: React.FC<PopularProductsProps> = ({data}) => {
+const PopularProducts: React.FC<PopularProductsProps> = ({ data }) => {
   return (
     <SectionWrapper>
       <div className="flex flex-col gap-2">
@@ -30,6 +30,7 @@ const PopularProducts: React.FC<PopularProductsProps> = ({data}) => {
           {data.map((product: Product) => (
             <ProductCard
               key={product?.id}
+              href={`/products/${product?.id}`}
               productImage={product?.productImage}
               productName={product?.productName}
               price={product?.price}
